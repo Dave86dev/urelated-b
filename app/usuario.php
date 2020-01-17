@@ -8,5 +8,5 @@ class usuario extends Model
 {
     //
 
-    protected $primaryKey = 'usuario_id';
+    // protected $primaryKey = 'usuario_id';
 }
