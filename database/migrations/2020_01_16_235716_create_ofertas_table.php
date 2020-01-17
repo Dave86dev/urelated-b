@@ -27,7 +27,11 @@ class CreateOfertasTable extends Migration
             $table->string('sector');
             $table->integer('num_vacantes');
             $table->string('desc_general');
-            // $table->integer('empresa_id');
+            $table->unsignedBigInteger('idempresa');
+            $table->foreign('idempresa', 'fk_ofertas_empresas')
+            ->on('empresas')
+            ->references('id')
+            ->onDelete('restrict');
         });
     }
 
