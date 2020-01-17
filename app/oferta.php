@@ -4,10 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class oferta extends Model
+class Oferta extends Model
 {
     //
 
 
-    protected $primaryKey = 'oferta_id';
+    public function suscripciones()
+    {
+        return $this->hasMany('App\Suscripcion');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo('App\Empresa');
+    }
 }

@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class usuario extends Model
+class Usuario extends Model
 {
     //
 
-    // protected $primaryKey = 'usuario_id';
+    public function suscripciones()
+    {
+        return $this->hasMany('App\Suscripcion');
+        
+    }
 }

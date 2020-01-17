@@ -24,6 +24,7 @@ class CreateEmpresasTable extends Migration
             $table->string('phone');         //teléfono empresa
             $table->string('fiscal');        //id fiscal
             $table->string('description');   //descripción empresa
+            $table->string('sector');        //descripción empresa
         });
     }
 
