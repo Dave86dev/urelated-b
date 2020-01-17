@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class empresa extends Model
+class Empresa extends Model
 {
     //
 
-    protected $primaryKey = 'empresa_id';
+    public function ofertas()
+    {
+        return $this->hasMany('App\Oferta');
+    }
 }
