@@ -14,6 +14,6 @@ class Suscripcion extends Model
 
     public function oferta()
     {
-        return $this->belongsTo('App\Oferta');
+        return $this->belongsTo('App\Oferta','idoferta','id');
     }
 }

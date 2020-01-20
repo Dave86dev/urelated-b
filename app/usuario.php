@@ -10,7 +10,7 @@ class Usuario extends Model
 
     public function suscripciones()
     {
-        return $this->hasMany('App\Suscripcion');
+        return $this->hasMany('App\Suscripcion','idusuario');
         
     }
 }
