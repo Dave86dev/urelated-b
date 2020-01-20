@@ -21,12 +21,12 @@ class CreateOfertasTable extends Migration
             $table->date('fecha_publi');
             $table->string('exp_requerida');
             $table->string('tipo_contrato');
-            $table->string('salario');
-            $table->string('req_academicos');
-            $table->string('des_requisitos');
+            $table->string('salario')->nullable();
+            $table->string('req_academicos')->nullable();;
+            $table->string('des_requisitos')->nullable();;
             $table->string('sector');
             $table->integer('num_vacantes');
-            $table->string('desc_general');
+            $table->string('desc_general')->nullable();;
             $table->unsignedBigInteger('idempresa');
             $table->foreign('idempresa', 'fk_ofertas_empresas')
             ->on('empresas')
