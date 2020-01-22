@@ -17,14 +17,25 @@ use App\Http\Controllers;
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Route::middleware('auth:api')->get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
     Route::get('/ofertas/{userId}', function ($userId)
     {
-        return App\usuario::find($userId)->load('suscripciones.oferta');
+        return App\Usuario::find($userId)->load('suscripciones.oferta');
     });
+
+    //Routes Usuarios
+
+    //Routes Empresas
+
+    //Routes Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');
+
+
+    //Routes Ofertas
+    Route::get('/salarios/{salario}','OfertaController@getId');
+        
 });
 
 
