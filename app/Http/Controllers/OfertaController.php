@@ -16,9 +16,28 @@ class OfertaController extends Controller
         return Oferta::where('tipo_contrato', 'LIKE', $tipo_contrato)->get();
     }
 
+    public function getPuesto($titulo){
+        return Oferta::where('titulo', 'LIKE', "%$titulo%")->get();
+    }
+
     public function getCiudad($ciudad){
         return Oferta::where('ciudad', 'LIKE', $ciudad)->get();
+    }
+
+    public function getSector($sector){
+        return Oferta::where('sector', 'LIKE', $sector)->get();
+    }
+
+    //Ciudad o Provincia
+    public function getCiudadProvincia($param1){
+        return Oferta::where('ciudad', 'LIKE', $param1)
+        ->orWhere('provincia', 'LIKE', $param1)
+        ->get();
     }
 }
 
 
+/*$libros = DB::table('books')
+	->where('author', '=', 'Mario Puzo')
+	->orWhere('author', '=', 'Cervantes')
+	->get();*/ 

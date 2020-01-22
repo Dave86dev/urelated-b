@@ -26,8 +26,10 @@ Route::group(['middleware' => ['cors']], function () {
     });
 
     //Routes Usuarios
+    Route::get('/loginU','SuscripcionController@getEmailU');
 
     //Routes Empresas
+    Route::get('/loginE','SuscripcionController@getEmailE');
 
     //Routes Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');
@@ -37,7 +39,10 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/salarios/{salario}','OfertaController@getId');
     Route::get('/contratos/{tipo_contrato}','OfertaController@getContrato');
     Route::get('/ciudades/{ciudad}','OfertaController@getCiudad');
-        
+    Route::get('/puestos/{titulo}','OfertaController@getPuesto');
+    Route::get('/sectores/{sector}','OfertaController@getSector');
+    
+    Route::get('/zonas/{param1}','OfertaController@getCiudadProvincia');
 });
 
 
