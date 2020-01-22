@@ -34,10 +34,13 @@ class OfertaController extends Controller
         ->orWhere('provincia', 'LIKE', $param1)
         ->get();
     }
+
+    //Puesto, empresa o palabra clave
+    public function getSearch1($param1){
+        return Oferta::where('titulo', 'LIKE', $param1)
+        ->orWhere('tipo_contrato', 'LIKE', $param1)
+        ->orWhere('idempresa', 'LIKE', $param1)
+        ->get();
+    }
 }
-
-
-/*$libros = DB::table('books')
-	->where('author', '=', 'Mario Puzo')
-	->orWhere('author', '=', 'Cervantes')
-	->get();*/ 
+ 
