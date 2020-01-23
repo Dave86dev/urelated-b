@@ -25,6 +25,8 @@ Route::group(['middleware' => ['cors']], function () {
         return App\Usuario::find($userId)->load('suscripciones.oferta');
     });
 
+    
+
     //Routes Usuarios
     Route::get('/loginU','SuscripcionController@getEmailU');
 
@@ -44,6 +46,8 @@ Route::group(['middleware' => ['cors']], function () {
     
     Route::get('/zonas/{param1}','OfertaController@getCiudadProvincia');
     Route::get('/search/{param1}','OfertaController@getSearch1');
+    
+    // Route::get('/ofertas/{param1}','OfertaController@getSearchOk');
 });
 
 
