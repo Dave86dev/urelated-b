@@ -35,11 +35,20 @@ class OfertaController extends Controller
         ->get();
     }
 
+    // //Puesto, empresa o palabra clave
+    // public function getSearch1($param1){
+    //     return Oferta::where('titulo', 'LIKE', $param1)
+    //     ->orWhere('tipo_contrato', 'LIKE', $param1)
+    //     ->orWhere('idempresa', 'LIKE', $param1)
+    //     ->get();
+    // }
     //Puesto, empresa o palabra clave
     public function getSearch1($param1){
-        return Oferta::where('titulo', 'LIKE', $param1)
+        return Oferta::join('ofertas','ofertas.idempresa', '=', 'empresas.id', 'inner', true)
+        ->where('titulo', 'LIKE', $param1)
         ->orWhere('tipo_contrato', 'LIKE', $param1)
         ->orWhere('idempresa', 'LIKE', $param1)
+        ->orWhere('empresas.name', 'LIKE', $param1)
         ->get();
     }
 }
