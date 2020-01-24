@@ -18,8 +18,11 @@ class CreateUsuariosTable extends Migration
             $table->timestamps();
             $table->date('birthday');                           //fecha de nacimiento
             $table->string('genre');                            //genero
-            $table->string('phone')->nullable();;               //email
+            $table->string('email');                            //email
+            $table->string('phone')->nullable();;               //telefono
             $table->string('password');                         //password
+            $table->string('secretQ');                          //secret question
+            $table->string('secretA');                          //secret answer
             $table->string('cpostal')->nullable();;             //código postal
             $table->string('ciudad');                           //código postal
             $table->string('provincia');                        //código postal

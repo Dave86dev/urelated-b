@@ -18,6 +18,8 @@ class CreateEmpresasTable extends Migration
             $table->timestamps();
             $table->string('email');                        //email
             $table->string('password');                     //password
+            $table->string('secretQ');                      //secret question
+            $table->string('secretA');                      //secret answer
             $table->string('name_reg');                     //nombre registrante
             $table->string('surname_reg')->nullable();      //apellido registrante
             $table->string('name');                         //nombre empresa

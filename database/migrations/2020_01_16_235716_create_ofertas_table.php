@@ -26,7 +26,7 @@ class CreateOfertasTable extends Migration
             $table->string('des_requisitos')->nullable();;
             $table->string('sector');
             $table->integer('num_vacantes');
-            $table->string('desc_general')->nullable();;
+            $table->string('desc_general', 2000)->nullable();;
             $table->unsignedBigInteger('idempresa');
             $table->foreign('idempresa', 'fk_ofertas_empresas')
             ->on('empresas')
