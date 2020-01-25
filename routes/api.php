@@ -38,6 +38,7 @@ Route::group(['middleware' => ['cors']], function () {
 
 
     //Routes Ofertas
+    Route::get('/allOfertas', 'OfertaController@getDefault');
     Route::get('/salarios/{salario}','OfertaController@getId');
     Route::get('/contratos/{tipo_contrato}','OfertaController@getContrato');
     Route::get('/ciudades/{ciudad}','OfertaController@getCiudad');

@@ -8,6 +8,16 @@ use App\Oferta;
 class OfertaController extends Controller
 {
     //
+
+    public function getDefault(){
+        return Oferta::
+        orderBy('fecha_publi', 'DESC')
+        ->limit(12)
+        ->get();
+    }
+
+    //$results = Project::orderBy('name')->get();
+
     public function getId($salario){
         return Oferta::where('salario','>=',$salario)->get();
     }
@@ -17,7 +27,9 @@ class OfertaController extends Controller
     }
 
     public function getPuesto($titulo){
-        return Oferta::where('titulo', 'LIKE', "%$titulo%")->get();
+        return Oferta::where('titulo', 'LIKE', "Director")
+        ->orWhere('titulo', 'LIKE', "CEO")
+        ->get();
     }
 
     public function getCiudad($ciudad){
