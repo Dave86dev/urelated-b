@@ -29,7 +29,8 @@ Route::group(['middleware' => ['cors']], function () {
 
     //Routes Usuarios
     Route::get('/loginU/{email}/{password}','UsuarioController@getLoginU');
-
+    Route::get('/logOutU/{id}','UsuarioController@getLogOutU');
+    
     //Routes Empresas
     Route::get('/loginE/{email}/{password}','EmpresaController@getLoginE');
 
