@@ -13,4 +13,6 @@ class Usuario extends Model
         return $this->hasMany('App\Suscripcion','idusuario');
         
     }
+
+    
 }
