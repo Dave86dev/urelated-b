@@ -24,11 +24,11 @@ class EmpresaController extends Controller
             $token = bin2hex(random_bytes($length));
 
             //guardamos el token en su campo correspondiente
-            Usuario::where('id', '=', $q)
+            Empresa::where('id', '=', $q)
             ->update(['token' => $token]);
 
             //devolvemos al front la info necesaria ya actualizada
-            return Usuario::where('email', 'LIKE', $param1)
+            return Empresa::where('email', 'LIKE', $param1)
             ->where('password', 'LIKE', $param2)->get();
         }
         return;
