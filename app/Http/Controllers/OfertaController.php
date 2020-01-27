@@ -62,5 +62,44 @@ class OfertaController extends Controller
         ->orWhere('titulo', 'LIKE', $param1)
         ->get();
     }
+
+    public function getOfertasBoth($param1, $param2){
+        /*
+        //$param2 corresponde a la búsqueda de ubicacion
+
+        return Oferta::where('ciudad', 'LIKE', $param1)
+        ->orWhere('provincia', 'LIKE', $param1)
+        ->get();
+
+        ---------------------------------------------
+
+        $param1 corresponde a la búsqueda de tipo de oferta
+        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->select('*')
+        ->where('name', 'LIKE', $param1)
+        ->orWhere('tipo_contrato', 'LIKE', $param1)
+        ->orWhere('titulo', 'LIKE', $param1)
+        ->get();
+        */
+
+        $tipoOferta = Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->select('*')
+        ->where('name', 'LIKE', $param1)
+        ->orWhere('tipo_contrato', 'LIKE', $param1)
+        ->orWhere('titulo', 'LIKE', $param1)
+        ->where('ciudad', 'LIKE', $param2)
+        ->orWhere('provincia', 'LIKE', $param2)
+        ->get();
+        
+        
+        
+        // $ubicacion = orWhere('ciudad', 'LIKE', $param2)
+        // ->orWhere('provincia', 'LIKE', $param2)
+        // ->get();
+
+        
+
+        return $tipoOferta;
+    }
 }
 
