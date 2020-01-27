@@ -30,10 +30,6 @@ class CreateUsuariosTable extends Migration
             $table->string('pais');                             //código postal
             $table->string('name');                             //nombre 
             $table->string('surname')->nullable();             //apellido
-            //$table->boolean('isWorking');                       si está trabajando o no
-            //$table->boolean('isWorked_before');                 si ha trabajado con anterioridad
-            //$table->boolean('isEstudios');                      si tiene estudios oficiales
-            
         });
     }
 

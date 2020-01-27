@@ -14,5 +14,10 @@ class Usuario extends Model
         
     }
 
+    public function curriculum()
+    {
+        return $this->hasOne('App\Curriculum');
+    }
+
     
 }
