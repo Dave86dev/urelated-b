@@ -33,6 +33,7 @@ Route::group(['middleware' => ['cors']], function () {
     
     //Routes Empresas
     Route::get('/loginE/{email}/{password}','EmpresaController@getLoginE');
+    Route::get('/logOutE/{id}','EmpresaController@getLogOutE');
 
     //Routes Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');

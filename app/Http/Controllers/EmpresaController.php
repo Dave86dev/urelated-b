@@ -34,5 +34,14 @@ class EmpresaController extends Controller
         return;
     }
 
+    public function getLogOutE($id){
+        //hacemos update en el campo token del usuario
+
+        $token_empty = "";
+
+        return Empresa::where('id', '=', $id)
+        ->update(['token' => $token_empty]);
+    }
+
 
 }
