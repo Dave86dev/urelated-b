@@ -54,7 +54,7 @@ Route::group(['middleware' => ['cors']], function () {
     
     Route::get('/ofertasOk/{param1}','OfertaController@getOfertas1');
 
-    Route::get('busquedaFiltro/{param1}/{param2}', 'OfertaController@getOfertasBoth');
+    Route::get('/busquedaFiltro/{param1}/{param2}', 'OfertaController@getOfertasBoth');
 });
 
 
