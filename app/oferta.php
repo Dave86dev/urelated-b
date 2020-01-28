@@ -11,7 +11,7 @@ class Oferta extends Model
 
     public function suscripciones()
     {
-        return $this->hasMany('App\Suscripcion');
+        return $this->hasMany('App\Suscripcion','idoferta','id');
     }
 
     public function empresa()

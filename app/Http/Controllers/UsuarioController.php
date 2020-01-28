@@ -7,11 +7,12 @@ use App\Usuario;
 
 class UsuarioController extends Controller
 {
-    //
+    //Obtener usuario por email
     public function getEmailU($email){
         return Usuario::where('email', 'LIKE', $email)->get();
     }
 
+    //Login de usuario con las credenciales de email y password
     public function getLoginU($param1, $param2){
 
         //encontramos al usuario en concreto
@@ -35,6 +36,7 @@ class UsuarioController extends Controller
          
     }
 
+    //Logout de usuario borrando el campo token
     public function getLogOutU($id){
         //hacemos update en el campo token del usuario
 
@@ -44,7 +46,8 @@ class UsuarioController extends Controller
         ->update(['token' => $token_empty]);
     }
 
-    public function perfilU($id, $paramPhone, $paramEmail, $paramCiudad,
+    //Actualizar perfil de usuario
+    public function perfilUMod($id, $paramPhone, $paramEmail, $paramCiudad,
     $paramProvincia, $paramPais, $paramName, $paramSurname){
         return Usuario::where('id', '=', $id)
         ->update(['phone' => $paramPhone, 'email' => $paramEmail,
@@ -52,6 +55,16 @@ class UsuarioController extends Controller
         'pais' => $paramPais, 'name' => $paramName, 'surname' => $paramSurname]);
         
     }
+
+    public function getPerfilU ($id){
+        return Usuario::all()->where('id', '=', $id)
+        ->makeHidden(['password']);
+       
+        //muestra 1 en el resultado en la web
+
+    }
+
+
     
 }
 

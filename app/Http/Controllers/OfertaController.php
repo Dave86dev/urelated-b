@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Oferta;
+use App\Suscripcion;
 
 class OfertaController extends Controller
 {
@@ -100,6 +101,44 @@ class OfertaController extends Controller
         
 
         return $tipoOferta;
+    }
+
+    public function getOfertasPorE($idEmpresa){
+        return Oferta::select ('*')
+        ->where('idempresa', '=',$idEmpresa)
+        ->get();
+    }
+
+    public function getOfertasPorENumU($idEmpresa){
+        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
+        // ->where('idoferta', '=', $idEmpresa);
+        // return ['datos'=>$suscripcion->get(),'inscritos'=>$suscripcion
+        // ->count ('idusuario')];
+        //---------------------------------------------//
+       
+        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
+        // ->where('idoferta', '=', $idOferta)
+        // ->where('idempresa', '=', $idEmpresa);
+
+        // $oferta = Oferta::where('idempresa', '=', $idEmpresa);
+        // return ['datos'=>$suscripcion->get(),'inscritos'=>$suscripcion
+        // ->count ('idusuario')];
+
+        //--------------------------------------------//
+
+        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
+        // ->where('idoferta', '=', $idOferta);
+        // ->where('idempresa', '=', $idEmpresa);
+        // ->groupBy('id');
+        
+
+        $ofertas = Oferta::with('suscripciones')->where('idempresa',$idEmpresa)->get();
+        foreach ($ofertas as $oferta) {
+            $oferta->load('suscripciones');
+            $oferta->total_suscritos=count($oferta->suscripciones);
+            unset($oferta->suscripciones);
+        }
+        return ['datos'=>$ofertas];
     }
 }
 

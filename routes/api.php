@@ -30,12 +30,14 @@ Route::group(['middleware' => ['cors']], function () {
     //Routes Usuarios
     Route::get('/loginU/{email}/{password}','UsuarioController@getLoginU');
     Route::get('/logOutU/{id}','UsuarioController@getLogOutU');
-    Route::get('/perfilU/{id}', 'UsuarioController@perfilU');
+    Route::get('/perfilUMod/{id}', 'UsuarioController@perfilUMod');
+    Route::get('/perfilU/{id}', 'UsuarioController@getPerfilU');
     
     //Routes Empresas
     Route::get('/loginE/{email}/{password}','EmpresaController@getLoginE');
     Route::get('/logOutE/{id}','EmpresaController@getLogOutE');
-    Route::get('perfilE/{id}', 'EmpresaController@perfilE');
+    Route::get('/perfilEMod/{id}', 'EmpresaController@perfilEMod');
+    Route::get('/perfilE/{id}', 'EmpresaController@getPerfilE');
 
     //Routes Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');
@@ -57,6 +59,10 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/ofertasOk/{param1}','OfertaController@getOfertas1');
 
     Route::get('/busquedaFiltro/{param1}/{param2}', 'OfertaController@getOfertasBoth');
+
+    Route::get('/ofertasPorE/{idEmpresa}', 'OfertaController@getOfertasPorE');
+
+    Route::get('/superBusqueda/{idEmpresa}', 'OfertaController@getOfertasPorENumU');
 });
 
 
