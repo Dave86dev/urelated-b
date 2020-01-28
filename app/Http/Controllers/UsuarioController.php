@@ -43,6 +43,15 @@ class UsuarioController extends Controller
         return Usuario::where('id', '=', $id)
         ->update(['token' => $token_empty]);
     }
+
+    public function perfilU($id, $paramPhone, $paramEmail, $paramCiudad,
+    $paramProvincia, $paramPais, $paramName, $paramSurname){
+        return Usuario::where('id', '=', $id)
+        ->update(['phone' => $paramPhone, 'email' => $paramEmail,
+        'ciudad' => $paramCiudad, 'provincia' => $paramProvincia, 
+        'pais' => $paramPais, 'name' => $paramName, 'surname' => $paramSurname]);
+        
+    }
     
 }
 

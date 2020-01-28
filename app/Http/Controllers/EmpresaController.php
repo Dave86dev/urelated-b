@@ -43,5 +43,12 @@ class EmpresaController extends Controller
         ->update(['token' => $token_empty]);
     }
 
+    public function perfilE($id, $paramEmail, $paramPhone, $paramName,
+    $paramDescription, $paramSector){
+        return Empresa::where ('id', '=', $id)
+        -update(['email' => $paramEmail, 'phone' => $paramEmail, 'name' => $paramPhone,
+        'description' => $paramDescription, 'sector' => $paramSector]);
+    }
+
 
 }
