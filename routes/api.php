@@ -28,14 +28,14 @@ Route::group(['middleware' => ['cors']], function () {
     
 
     //Routes Usuarios
-    //Route::get('/loginU/{email}/{password}','UsuarioController@getLoginU');
+    
     Route::post('/loginU','UsuarioController@postLoginU');
     Route::post('/logOutU','UsuarioController@postLogOutU');
     Route::get('/perfilUMod/{id}', 'UsuarioController@perfilUMod');
     Route::get('/perfilU/{id}', 'UsuarioController@getPerfilU');
     
     //Routes Empresas
-    //Route::get('/loginE/{email}/{password}','EmpresaController@getLoginE');
+    
     Route::post('/loginE', 'EmpresaController@postLoginE');
     Route::post('/logOutE','EmpresaController@postLogOutE');
     Route::get('/perfilEMod/{id}', 'EmpresaController@perfilEMod');
