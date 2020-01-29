@@ -29,14 +29,14 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/registerU', 'UsuarioController@postRegisterU');
     Route::post('/loginU','UsuarioController@postLoginU');
     Route::post('/logOutU','UsuarioController@postLogOutU');
-    Route::get('/perfilUMod/{id}', 'UsuarioController@perfilUMod');
+    Route::post('/perfilUMod', 'UsuarioController@postPerfilUMod');
     Route::get('/perfilU/{id}', 'UsuarioController@getPerfilU');
     
     //Routes Empresas
     Route::post('/registerE', 'EmpresaController@postRegisterE');
     Route::post('/loginE', 'EmpresaController@postLoginE');
     Route::post('/logOutE','EmpresaController@postLogOutE');
-    Route::get('/perfilEMod/{id}', 'EmpresaController@perfilEMod');
+    Route::post('/perfilEMod', 'EmpresaController@postPerfilEMod');
     Route::get('/perfilE/{id}', 'EmpresaController@getPerfilE');
 
     //Routes Suscripciones

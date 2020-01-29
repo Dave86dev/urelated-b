@@ -49,13 +49,7 @@ class EmpresaController extends Controller
         ->update(['token' => $token_empty]);
     }
 
-    //Actualiza el pefil de empresa
-    public function perfilEMod($id, $paramEmail, $paramPhone, $paramName,
-    $paramDescription, $paramSector){
-        return Empresa::where ('id', '=', $id)
-        ->update(['email' => $paramEmail, 'phone' => $paramEmail, 'name' => $paramPhone,
-        'description' => $paramDescription, 'sector' => $paramSector]);
-    }
+    
 
     public function getPerfilE($id){
         return Empresa::all()->where('id', '=', $id)
@@ -95,6 +89,24 @@ class EmpresaController extends Controller
         } catch(QueryException $err) {
              echo ($err);
         }
+    }
+
+
+    public function postPerfilEMod(Request $request){
+
+        //Actualiza el pefil de empresa
+
+        $id = $request->input('id');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $sector = $request->input('sector');
+
+
+        return Empresa::where ('id', '=', $id)
+        ->update(['email' => $email, 'phone' => $phone, 'name' => $name,
+        'description' => $description, 'sector' => $sector]);
     }
 
 }

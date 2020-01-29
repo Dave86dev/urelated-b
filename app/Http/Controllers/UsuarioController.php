@@ -119,33 +119,25 @@ class UsuarioController extends Controller
         }
     }
 
+    public function postPerfilUMod(Request $request){
+
+        //Actualiza el pefil de candidato
+
+        $id = $request->input('id');
+        $name = $request->input('name');
+        $surname = $request->input('surname');
+        $phone = $request->input('phone');
+        $email = $request->input('email');
+        $ciudad = $request->input('ciudad');
+        $provincia = $request->input('provincia');
+        $pais = $request->input('country');
+
+        return Usuario::where('id', '=', $id)
+        ->update(['phone' => $phone, 'email' => $email,
+        'ciudad' => $ciudad, 'provincia' => $provincia, 
+        'pais' => $pais, 'name' => $name, 'surname' => $surname]);
+    }
+
 
     
 }
-
-
-
-/*//Login de usuario con las credenciales de email y password
-    public function getLoginU($param1, $param2){
-
-        //encontramos al usuario en concreto
-        $q = Usuario::where('email', 'LIKE', $param1)
-         ->where('password', 'LIKE', $param2)->first()->id;
-
-         //si existe, generamos el token
-         if($q != null){
-            $length = 50;
-            $token = bin2hex(random_bytes($length));
-
-            //guardamos el token en su campo correspondiente
-            Usuario::where('id', '=', $q)
-            ->update(['token' => $token]);
-
-            //devolvemos al front la info necesaria ya actualizada
-            return Usuario::where('email', 'LIKE', $param1)
-            ->where('password', 'LIKE', $param2)->get();
-         }
-         return;
-         
-    }*/
-
