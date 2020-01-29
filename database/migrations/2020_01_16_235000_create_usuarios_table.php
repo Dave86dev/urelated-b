@@ -18,7 +18,8 @@ class CreateUsuariosTable extends Migration
             $table->timestamps();
             //$table->date('birthday');                           //fecha de nacimiento
             //$table->string('genre');                            //genero
-            $table->string('email');                            //email
+            $table->string('email')->unique();                     //email
+            $table->string('picture')->nullable();          //foto de empresa
             $table->string('phone')->nullable();               //telefono
             $table->string('password');                         //password
             $table->string('secretQ');                          //secret question

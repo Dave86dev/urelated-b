@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use App\Empresa;
 
 class EmpresaController extends Controller
@@ -52,7 +53,7 @@ class EmpresaController extends Controller
     public function perfilEMod($id, $paramEmail, $paramPhone, $paramName,
     $paramDescription, $paramSector){
         return Empresa::where ('id', '=', $id)
-        -update(['email' => $paramEmail, 'phone' => $paramEmail, 'name' => $paramPhone,
+        ->update(['email' => $paramEmail, 'phone' => $paramEmail, 'name' => $paramPhone,
         'description' => $paramDescription, 'sector' => $paramSector]);
     }
 
@@ -63,7 +64,7 @@ class EmpresaController extends Controller
 
     public function postRegisterE(Request $request){
         //Registro empresa
-        $username = $request->input('userame');
+        $username = $request->input('username');
         $surname = $request->input('surname');
         $name = $request->input('name');
         $email = $request->input('email');
@@ -74,11 +75,29 @@ class EmpresaController extends Controller
         $sector = $request->input('sector');
         $description = $request->input('description');
 
-        $q = Empresa::where('email', 'LIKE', $email)->first()->id;
+        
 
-        //if($q !=null){
+        //$q = Empresa::where('email', 'LIKE', $email)->first()->id;
+        try {
 
-        //}
+            return Empresa::create(
+                [
+                    'name_reg' => $username,
+                    'surname_reg' => $surname,
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'secretQ' => $secretQ,
+                    'secretA' => $secretA,
+                    'phone' => $phone,
+                    'sector' => $sector,
+                    'description' => $description
+                ]);
+
+
+        } catch(QueryException $err) {
+             echo ($err);
+        }
     }
 
 }
