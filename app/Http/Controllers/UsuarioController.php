@@ -8,32 +8,48 @@ use App\Usuario;
 
 class UsuarioController extends Controller
 {
-    //Obtener usuario por email
-    public function getEmailU($email){
-        return Usuario::where('email', 'LIKE', $email)->get();
+
+    //Obtener perfil usuario por id
+    public function getPerfilU ($id){
+
+        try {
+
+            return Usuario::all()->where('id', '=', $id)
+            ->makeHidden(['password']);
+       
+        } catch (QueryException $error){
+            return $error;
+        }
     }
 
-    
-    /*protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            ]);
-        }*/
+    //Obtener usuario por email
+    public function getEmailU($email){
+
+        try {
+
+            return Usuario::where('email', 'LIKE', $email)->get();
+
+        } catch (QueryException $error){
+
+            return $error;
         
-    
+        }
+
+    }
+
+    //Login usuario
     public function postLoginU(Request $request){
         
         $email = $request->input('email');
         $password = $request->input('password'); 
-        
-        $q = Usuario::where('email', 'LIKE', $email)
-         ->where('password', 'LIKE', $password)->first()->id;
 
-         //si existe, generamos el token
-         if($q != null){
+        try {
+
+            $q = Usuario::where('email', 'LIKE', $email)
+            ->where('password', 'LIKE', $password)->first()->id;
+
+            //si existe, generamos el token
+            if($q != null){
             $length = 50;
             $token = bin2hex(random_bytes($length));
 
@@ -45,13 +61,13 @@ class UsuarioController extends Controller
             return Usuario::where('email', 'LIKE', $email)
             ->where('password', 'LIKE', $password)->get();
          }
-         return;
 
+        } catch(QueryException $error){
+            return $error;
+        }
     }
 
-    
-
-    //Logout de usuario borrando el campo token
+    //Logout de usuario
     public function postLogOutU(Request $request){
         //hacemos update en el campo token del usuario
 
@@ -59,31 +75,17 @@ class UsuarioController extends Controller
 
         $token_empty = "";
 
-        return Usuario::where('id', '=', $id)
-        ->update(['token' => $token_empty]);
+        try {
+
+            return Usuario::where('id', '=', $id)
+            ->update(['token' => $token_empty]);
+
+        } catch(QueryException $error){
+            return $error;
+        }
     }
 
-    //Actualizar perfil de usuario
-    public function perfilUMod(Request $request){
-
-        //$id, $paramPhone, $paramEmail, $paramCiudad,
-        //$paramProvincia, $paramPais, $paramName, $paramSurname
-
-        // return Usuario::where('id', '=', $id)
-        // ->update(['phone' => $paramPhone, 'email' => $paramEmail,
-        // 'ciudad' => $paramCiudad, 'provincia' => $paramProvincia, 
-        // 'pais' => $paramPais, 'name' => $paramName, 'surname' => $paramSurname]);
-        
-    }
-
-    public function getPerfilU ($id){
-        return Usuario::all()->where('id', '=', $id)
-        ->makeHidden(['password']);
-       
-        //muestra 1 en el resultado en la web
-
-    }
-
+    //Registro usuario
     public function postRegisterU(Request $request){
         //Registro candidato
         $name = $request->input('name');
@@ -114,11 +116,12 @@ class UsuarioController extends Controller
                 ]);
 
 
-        } catch(QueryException $err) {
-             echo ($err);
+        } catch(QueryException $error) {
+             return $error;
         }
     }
 
+    //Modificar perfil usuario
     public function postPerfilUMod(Request $request){
 
         //Actualiza el pefil de candidato
@@ -132,12 +135,17 @@ class UsuarioController extends Controller
         $provincia = $request->input('provincia');
         $pais = $request->input('country');
 
+        try {
+
+
+        } catch (QueryException $error) {
+            return $error;
+        }
+
         return Usuario::where('id', '=', $id)
         ->update(['phone' => $phone, 'email' => $email,
         'ciudad' => $ciudad, 'provincia' => $provincia, 
         'pais' => $pais, 'name' => $name, 'surname' => $surname]);
     }
-
-
-    
+   
 }

@@ -10,6 +10,7 @@ class OfertaController extends Controller
 {
     //
 
+    //ofertas default en orden descendente según fecha
     public function getDefault(){
         return Oferta::
         orderBy('fecha_publi', 'DESC')
@@ -17,44 +18,41 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //$results = Project::orderBy('name')->get();
-
-    public function getId($salario){
+    //ofertas según salario
+    public function getSalario($salario){
         return Oferta::where('salario','>=',$salario)->get();
     }
 
+    //ofertas según contrato
     public function getContrato($tipo_contrato){
         return Oferta::where('tipo_contrato', 'LIKE', $tipo_contrato)->get();
     }
 
+    //ofertas según puesto
     public function getPuesto($titulo){
         return Oferta::where('titulo', 'LIKE', "Director")
         ->orWhere('titulo', 'LIKE', "CEO")
         ->get();
     }
 
+    //oferta según ciudad
     public function getCiudad($ciudad){
         return Oferta::where('ciudad', 'LIKE', $ciudad)->get();
     }
 
+    //oferta según sector
     public function getSector($sector){
         return Oferta::where('sector', 'LIKE', $sector)->get();
     }
 
-    //Ciudad o Provincia
-    public function getCiudadProvincia($param1){
-        return Oferta::where('ciudad', 'LIKE', $param1)
-        ->orWhere('provincia', 'LIKE', $param1)
-        ->get();
-    }
-
-    //Oferta segun nombre de empresa
+    //Oferta según nombre de empresa
     public function getOfertaEmpresaName($param1){
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('ofertas.*')
         ->where('name', 'LIKE', $param1)->get();
     }
 
+    //ofertas según el primer parámetro de búsqueda (search home)
     public function getOfertas1($param1){
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('*')
@@ -64,6 +62,14 @@ class OfertaController extends Controller
         ->get();
     }
 
+    //Ciudad o Provincia (segundo parámetro de búsqueda home)
+    public function getCiudadProvincia($param1){
+        return Oferta::where('ciudad', 'LIKE', $param1)
+        ->orWhere('provincia', 'LIKE', $param1)
+        ->get();
+    }
+
+    //ofertas por 2 parámetros de búsqueda (search home)
     public function getOfertasBoth($param1, $param2){
         /*
         //$param2 corresponde a la búsqueda de ubicacion
@@ -103,12 +109,14 @@ class OfertaController extends Controller
         return $tipoOferta;
     }
 
+    //Ofertas por id de empresa
     public function getOfertasPorE($idEmpresa){
         return Oferta::select ('*')
         ->where('idempresa', '=',$idEmpresa)
         ->get();
     }
 
+    //Número de usuarios suscritos a una oferta
     public function getOfertasPorENumU($idEmpresa){
         // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
         // ->where('idoferta', '=', $idEmpresa);
