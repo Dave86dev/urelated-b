@@ -75,9 +75,6 @@ class EmpresaController extends Controller
         $sector = $request->input('sector');
         $description = $request->input('description');
 
-        
-
-        //$q = Empresa::where('email', 'LIKE', $email)->first()->id;
         try {
 
             return Empresa::create(

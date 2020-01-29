@@ -83,6 +83,40 @@ class UsuarioController extends Controller
 
     }
 
+    public function postRegisterE(Request $request){
+        //Registro candidato
+        $surname = $request->input('surname');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $secretQ = $request->input('secretQ');
+        $secretA = $request->input('secretA');
+        $phone = $request->input('phone');
+        $sector = $request->input('sector');
+        $description = $request->input('description');
+
+        try {
+
+            return Empresa::create(
+                [
+                    'name_reg' => $username,
+                    'surname_reg' => $surname,
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password,
+                    'secretQ' => $secretQ,
+                    'secretA' => $secretA,
+                    'phone' => $phone,
+                    'sector' => $sector,
+                    'description' => $description
+                ]);
+
+
+        } catch(QueryException $err) {
+             echo ($err);
+        }
+    }
+
 
     
 }

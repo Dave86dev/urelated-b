@@ -8,7 +8,8 @@ class Empresa extends Model
 {
     //
     protected $fillable = [
-        'name_reg', 'surname_reg', 'name', 'email', 'password', 'secretQ', 'secretA', 'phone', 'sector', 'description'
+        'name_reg', 'surname_reg', 'name', 'picture', 'email', 'password', 'secretQ', 
+        'secretA', 'phone', 'sector', 'description'
     ];
 
     public function ofertas()
