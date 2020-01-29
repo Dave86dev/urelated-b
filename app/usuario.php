@@ -8,8 +8,8 @@ class Usuario extends Model
 {
     //
     protected $fillable = [
-        'email', 'picture', 'phone', 'password', 'secretQ', 'secretA', 'ciudad', 'provincia',
-        'pais', 'name', 'surname'
+        'name','surname','email', 'picture','password', 'secretQ', 'secretA','phone', 'ciudad', 'provincia',
+        'pais'
     ];
 
     public function suscripciones()

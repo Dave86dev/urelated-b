@@ -25,8 +25,6 @@ Route::group(['middleware' => ['cors']], function () {
         return App\Usuario::find($userId)->load('suscripciones.oferta');
     });
 
-    
-
     //Routes Usuarios
     Route::post('/registerU', 'UsuarioController@postRegisterU');
     Route::post('/loginU','UsuarioController@postLoginU');

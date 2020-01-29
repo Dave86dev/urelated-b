@@ -9,11 +9,10 @@ Content-Type:application/json
 }
 ###
 // Register
-POST http://localhost:8000/api/registerE
+POST http://localhost:8000/api/registerU
 Content-Type:application/json
 
 {
-	"name_reg":  "Jacinto",
 	"surname_reg":  "ramirez",
 	"name":  "SEGA",
 	"email": "jac@jac",
