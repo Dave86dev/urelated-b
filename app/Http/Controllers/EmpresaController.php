@@ -12,14 +12,16 @@ class EmpresaController extends Controller
         return Empresa::where('email', 'LIKE', $email)->get();
     }
 
-    public function getLoginE($param1, $param2){
+    public function postLoginE(Request $request){
         
-        //encontramos a la empresa en concreto
-        $q = Empresa::where('email', 'LIKE', $param1)
-        ->where('password', 'LIKE', $param2)->first()->id;
+        $email = $request->input('email');
+        $password = $request->input('password'); 
+        
+        $q = Empresa::where('email', 'LIKE', $email)
+         ->where('password', 'LIKE', $password)->first()->id;
 
-        //si existe, generamos el token
-        if($q != null){
+         //si existe, generamos el token
+         if($q != null){
             $length = 50;
             $token = bin2hex(random_bytes($length));
 
@@ -28,14 +30,17 @@ class EmpresaController extends Controller
             ->update(['token' => $token]);
 
             //devolvemos al front la info necesaria ya actualizada
-            return Empresa::where('email', 'LIKE', $param1)
-            ->where('password', 'LIKE', $param2)->get();
-        }
-        return;
+            return Empresa::where('email', 'LIKE', $email)
+            ->where('password', 'LIKE', $password)->get();
+         }
+         return;
+
     }
 
-    public function getLogOutE($id){
-        //hacemos update en el campo token del usuario
+    public function postLogOutE(Request $request){
+        //hacemos update en el campo token de la empresa
+
+        $id = $request->input('id');
 
         $token_empty = "";
 
@@ -57,3 +62,33 @@ class EmpresaController extends Controller
     }
 
 }
+
+
+
+
+
+
+
+
+
+// public function getLoginE($param1, $param2){
+        
+    //     //encontramos a la empresa en concreto
+    //     $q = Empresa::where('email', 'LIKE', $param1)
+    //     ->where('password', 'LIKE', $param2)->first()->id;
+
+    //     //si existe, generamos el token
+    //     if($q != null){
+    //         $length = 50;
+    //         $token = bin2hex(random_bytes($length));
+
+    //         //guardamos el token en su campo correspondiente
+    //         Empresa::where('id', '=', $q)
+    //         ->update(['token' => $token]);
+
+    //         //devolvemos al front la info necesaria ya actualizada
+    //         return Empresa::where('email', 'LIKE', $param1)
+    //         ->where('password', 'LIKE', $param2)->get();
+    //     }
+    //     return;
+    // }

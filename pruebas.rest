@@ -1,0 +1,9 @@
+// Login
+# @name resLogin
+POST http://localhost:8000/api/loginU
+Content-Type:application/json
+
+{
+	"email":  "david@gmail.com",
+	"password":  "12345"
+}
