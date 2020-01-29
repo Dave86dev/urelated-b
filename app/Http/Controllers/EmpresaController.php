@@ -61,6 +61,26 @@ class EmpresaController extends Controller
         ->makeHidden(['password']);
     }
 
+    public function postRegisterE(Request $request){
+        //Registro empresa
+        $username = $request->input('userame');
+        $surname = $request->input('surname');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $secretQ = $request->input('secretQ');
+        $secretA = $request->input('secretA');
+        $phone = $request->input('phone');
+        $sector = $request->input('sector');
+        $description = $request->input('description');
+
+        $q = Empresa::where('email', 'LIKE', $email)->first()->id;
+
+        //if($q !=null){
+
+        //}
+    }
+
 }
 
 
