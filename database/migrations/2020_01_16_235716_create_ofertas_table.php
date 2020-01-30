@@ -20,12 +20,11 @@ class CreateOfertasTable extends Migration
             $table->string('ciudad');
             $table->string('provincia');
             $table->boolean('isActive');
+            $table->integer('estado');
             $table->date('fecha_publi');
             $table->string('exp_requerida');
             $table->string('tipo_contrato');
             $table->string('salario')->nullable();
-            //$table->string('req_academicos')->nullable();;
-            //$table->string('des_requisitos')->nullable();;
             $table->string('sector');
             $table->integer('num_vacantes');
             $table->string('desc_general', 2000)->nullable();;

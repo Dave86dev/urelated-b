@@ -160,8 +160,6 @@ class OfertaController extends Controller
         $estado = $request->query('estado');
         $keyword = $request->query('keyword');
 
-        
-
         return Oferta::select ('*')
         ->when($activas, function ($query, $activas) {
             return $query->where('isActive', '=', $activas);
@@ -169,9 +167,12 @@ class OfertaController extends Controller
         ->when($orden, function ($query, $orden) {
             return $query->orderBy('fecha_publi', 'DESC');
         })
-        // ->when($estado, function ($query, $estado) {
-        //     return $query->where('isActive', '=', $estado);
-        // })
+        ->when($estado, function ($query, $estado) {
+            return $query->where('estado', '=', $estado);
+        })
+        ->when($keyword, function ($query, $keyword) {
+            return $query->where('desc_general', 'LIKE', "%{$keyword}%");
+        })
         ->where('idempresa', '=',$id)
         ->get();
     }

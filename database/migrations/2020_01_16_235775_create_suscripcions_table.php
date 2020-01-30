@@ -16,7 +16,7 @@ class CreateSuscripcionsTable extends Migration
         Schema::create('suscripcions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('estado');
+            $table->integer('estado');
             $table->date('fecha_sus');
             $table->unsignedBigInteger('idusuario');
             $table->foreign('idusuario', 'fk_suscripcions_usuarios')
