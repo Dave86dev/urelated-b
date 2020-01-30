@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Oferta;
 use App\Suscripcion;
+//use Illuminate\Support\Facades\Input;
+//use Request;
 
 class OfertaController extends Controller
 {
@@ -147,6 +148,32 @@ class OfertaController extends Controller
             unset($oferta->suscripciones);
         }
         return ['datos'=>$ofertas];
+    }
+
+    //Ofertas por id de empresa y filtros
+    public function getOfertasPorEmp(Request $request){
+        //id activas orden estado keyword
+        
+        $id = $request->query('id');
+        $activas = $request->query('activas');
+        $orden = $request->query('orden');
+        $estado = $request->query('estado');
+        $keyword = $request->query('keyword');
+
+        
+
+        return Oferta::select ('*')
+        ->when($activas, function ($query, $activas) {
+            return $query->where('isActive', '=', $activas);
+        })
+        ->when($orden, function ($query, $orden) {
+            return $query->orderBy('fecha_publi', 'DESC');
+        })
+        // ->when($estado, function ($query, $estado) {
+        //     return $query->where('isActive', '=', $estado);
+        // })
+        ->where('idempresa', '=',$id)
+        ->get();
     }
 }
 
