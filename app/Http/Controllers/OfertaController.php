@@ -191,7 +191,8 @@ class OfertaController extends Controller
         $puesto = $request->query('puesto');
         $lugar = $request->query('lugar');
         $salario = $request->query('salario');
-
+        $experiencia = $request->query('experiencia');
+        $jornada = $request->query('jornada');
         
 
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -201,6 +202,12 @@ class OfertaController extends Controller
         })
         ->when($salario, function ($query, $salario) {
             $query->where('salario', '>=', $salario);
+        })
+        ->when($experiencia, function ($query, $experiencia) {
+            $query->where('exp_requerida', '=', $experiencia);
+        })
+        ->when($jornada, function ($query, $jornada) {
+            $query->where('tipo_contrato', 'LIKE', $jornada);
         })
         ->when($lugar, function ($query, $lugar) {
             $query->where('ciudad', 'LIKE', $lugar);
