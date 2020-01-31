@@ -159,7 +159,70 @@ class OfertaController extends Controller
         return ['datos'=>$ofertas];
     }
 
-    //resultados de search y buscaresultado
+    //Ofertas por id de empresa y filtros
+    public function getOfertasPorEmp(Request $request){
+        //id activas orden estado keyword
+        
+        $id = $request->query('id');
+        $activas = $request->query('activas');
+        $orden = $request->query('orden');
+        $estado = $request->query('estado');
+        $keyword = $request->query('keyword');
+
+        return Oferta::select ('*')
+        ->when($activas, function ($query, $activas) {
+            return $query->where('isActive', '=', $activas);
+        })
+        ->when($orden, function ($query, $orden) {
+            return $query->orderBy('fecha_publi', 'DESC');
+        })
+        ->when($estado, function ($query, $estado) {
+            return $query->where('estado', '=', $estado);
+        })
+        ->when($keyword, function ($query, $keyword) {
+            return $query->where('desc_general', 'LIKE', "%{$keyword}%");
+        })
+        ->where('idempresa', '=',$id)
+        ->get();
+    }
+
+    public function getsearchHome(Request $request){
+        
+        $puesto = $request->query('puesto');
+        $lugar = $request->query('lugar');
+        $salario = $request->query('salario');
+
+        
+
+        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->select('*')
+        ->when($puesto, function ($query, $puesto) {
+            $query->where('titulo', 'LIKE', $puesto);
+        })
+        ->when($salario, function ($query, $salario) {
+            $query->where('salario', '>=', $salario);
+        })
+        ->when($lugar, function ($query, $lugar) {
+            $query->where('ciudad', 'LIKE', $lugar);
+        })
+        ->orderBy('fecha_publi', 'DESC')
+        ->limit(12)
+        ->get();
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+//resultados de search y buscaresultado
     // public function getHomeResults(Request $request){
     //     //campos de search
 
@@ -201,54 +264,3 @@ class OfertaController extends Controller
 
         
     // }
-
-    //Ofertas por id de empresa y filtros
-    public function getOfertasPorEmp(Request $request){
-        //id activas orden estado keyword
-        
-        $id = $request->query('id');
-        $activas = $request->query('activas');
-        $orden = $request->query('orden');
-        $estado = $request->query('estado');
-        $keyword = $request->query('keyword');
-
-        return Oferta::select ('*')
-        ->when($activas, function ($query, $activas) {
-            return $query->where('isActive', '=', $activas);
-        })
-        ->when($orden, function ($query, $orden) {
-            return $query->orderBy('fecha_publi', 'DESC');
-        })
-        ->when($estado, function ($query, $estado) {
-            return $query->where('estado', '=', $estado);
-        })
-        ->when($keyword, function ($query, $keyword) {
-            return $query->where('desc_general', 'LIKE', "%{$keyword}%");
-        })
-        ->where('idempresa', '=',$id)
-        ->get();
-    }
-
-    public function getsearchHome(Request $request){
-        
-        $puesto = $request->query('puesto');
-        $lugar = $request->query('lugar');
-
-        /**/
-
-        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
-        ->select('*')
-        ->when($puesto, function ($query, $puesto) {
-            $query->where('titulo', 'LIKE', $puesto);
-        })
-        
-        ->when($lugar, function ($query, $lugar) {
-            $query->where('ciudad', 'LIKE', $lugar);
-        })
-        ->orderBy('fecha_publi', 'DESC')
-        ->limit(12)
-        ->get();
-        
-    }
-}
-
