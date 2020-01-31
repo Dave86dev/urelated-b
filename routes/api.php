@@ -48,6 +48,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/sectores/{sector}','OfertaController@getSector');
     Route::get('/zonas/{param1}','OfertaController@getCiudadProvincia');
     Route::get('/search/{param1}','OfertaController@getSearch1');
+    Route::get('/searchHome', 'OfertaController@getsearchHome');
     Route::get('/ofertasEmpresa/{param1}','OfertaController@getOfertaEmpresaName');
     Route::get('/tipoOferta/{param1}','OfertaController@getOfertas1');
     Route::get('/busquedaFiltro/{param1}/{param2}', 'OfertaController@getOfertasBoth');

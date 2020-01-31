@@ -98,8 +98,17 @@ class OfertaController extends Controller
         ->where('ciudad', 'LIKE', $param2)
         ->orWhere('provincia', 'LIKE', $param2)
         ->get();
+
+        /*$subquery = Login::select('logins.id') 
+        ->whereColumn('logins.user_id', 'users.id') 
+        ->latest() 
+        ->limit(1); 
+ 
+    $query->addSelect(['last_login_id' => $subquery]);
+ 
+    $query->with('last_login'); */
         
-        
+    
         
         // $ubicacion = orWhere('ciudad', 'LIKE', $param2)
         // ->orWhere('provincia', 'LIKE', $param2)
@@ -150,6 +159,49 @@ class OfertaController extends Controller
         return ['datos'=>$ofertas];
     }
 
+    //resultados de search y buscaresultado
+    // public function getHomeResults(Request $request){
+    //     //campos de search
+
+    //     $puesto = $request->query('puesto');
+    //     $lugar = $request->query('lugar');
+
+    //     if ($puesto == null && $lugar == null){
+    //         return Oferta::
+    //         orderBy('fecha_publi', 'DESC')
+    //         ->limit(12)
+    //         ->get();
+    //     }
+
+    //     if ($puesto && $lugar == null){
+    //         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+    //         ->select('*')
+    //         ->where('name', 'LIKE', $puesto)
+    //         ->orWhere('tipo_contrato', 'LIKE', $puesto)
+    //         ->orWhere('titulo', 'LIKE', $puesto)
+    //         ->get();
+    //     }
+
+    //     if ($puesto == null && $lugar){
+    //         return Oferta::where('ciudad', 'LIKE', $lugar)
+    //         ->orWhere('provincia', 'LIKE', $lugar)
+    //         ->get();
+    //     }
+
+        // if($puesto && $lugar){
+        //     return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        //     ->select('*')
+        //     ->where('name', 'LIKE', $puesto)
+        //     ->orWhere('tipo_contrato', 'LIKE', $puesto)
+        //     ->orWhere('titulo', 'LIKE', $puesto)
+        //     ->where('ciudad', 'LIKE', $lugar)
+        //     ->orWhere('provincia', 'LIKE', $lugar)
+        //     ->get();
+        // }
+
+        
+    // }
+
     //Ofertas por id de empresa y filtros
     public function getOfertasPorEmp(Request $request){
         //id activas orden estado keyword
@@ -175,6 +227,28 @@ class OfertaController extends Controller
         })
         ->where('idempresa', '=',$id)
         ->get();
+    }
+
+    public function getsearchHome(Request $request){
+        
+        $puesto = $request->query('puesto');
+        $lugar = $request->query('lugar');
+
+        /**/
+
+        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->select('*')
+        ->when($puesto, function ($query, $puesto) {
+            $query->where('titulo', 'LIKE', $puesto);
+        })
+        
+        ->when($lugar, function ($query, $lugar) {
+            $query->where('ciudad', 'LIKE', $lugar);
+        })
+        ->orderBy('fecha_publi', 'DESC')
+        ->limit(12)
+        ->get();
+        
     }
 }
 
