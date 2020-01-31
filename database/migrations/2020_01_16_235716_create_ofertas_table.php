@@ -22,9 +22,9 @@ class CreateOfertasTable extends Migration
             $table->boolean('isActive');
             $table->integer('estado');
             $table->date('fecha_publi');
-            $table->string('exp_requerida');
+            $table->integer('exp_requerida');
             $table->string('tipo_contrato');
-            $table->string('salario')->nullable();
+            $table->integer('salario')->nullable();
             $table->string('sector');
             $table->integer('num_vacantes');
             $table->string('desc_general', 2000)->nullable();;
