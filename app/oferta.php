@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Oferta extends Model
 {
     //
+    protected $fillable = [
+        'titulo', 'ciudad', 'isActive', 'estado', 'fecha_publi', 'exp_requerida', 'tipo_contrato', 
+        'salario', 'sector', 'num_vacantes', 'desc_general', 'idempresa'
+    ];
 
 
     public function suscripciones()

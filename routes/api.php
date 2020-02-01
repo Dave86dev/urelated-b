@@ -59,6 +59,8 @@ Route::group(['middleware' => ['cors']], function () {
     {
         return App\Usuario::find($userId)->load('suscripciones.oferta');
     });
+
+    Route::post('/nuevaOferta', 'OfertaController@newOferta');
 });
 
 

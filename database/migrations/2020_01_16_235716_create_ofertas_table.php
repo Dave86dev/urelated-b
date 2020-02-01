@@ -18,7 +18,7 @@ class CreateOfertasTable extends Migration
             $table->timestamps();
             $table->string('titulo');
             $table->string('ciudad');
-            $table->string('provincia');
+            // $table->string('provincia');
             $table->boolean('isActive');
             $table->integer('estado');
             $table->date('fecha_publi');

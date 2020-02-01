@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Oferta;
 use App\Suscripcion;
-//use Illuminate\Support\Facades\Input;
-//use Request;
+use Illuminate\Database\QueryException;
 
 class OfertaController extends Controller
 {
@@ -217,57 +216,45 @@ class OfertaController extends Controller
         ->get();
         
     }
-}
+
+    public function newOferta(Request $request){
+
+        $idEmpresa = $request->input('idEmpresa');
+        $titulo = $request->input('titulo');
+        $ciudad = $request->input('ciudad');
+        $salario = $request->input('salario');
+        $sector = $request->input('sector');
+        $vacantes = $request->input('vacantes');
+        $experiencia = $request->input('experiencia');
+        $jornada = $request->input('jornada');
+        $descripcion = $request->input('descripcion');
+        $fecha = $request->input('fecha');
+        $estado = 0;
+        $activo = 1;
+
+        try {
+
+            return Oferta::create(
+                [
+                    'titulo' => $titulo,
+                    'ciudad' => $ciudad,
+                    'isActive' => $activo,
+                    'estado' => $estado,
+                    'fecha_publi' => $fecha,
+                    'exp_requerida' => $experiencia,
+                    'tipo_contrato' => $jornada,
+                    'salario' => $salario,
+                    'sector' => $sector,
+                    'num_vacantes' => $vacantes,
+                    'desc_general' => $descripcion,
+                    'idempresa' => $idEmpresa
+                ]);
 
 
-
-
-
-
-
-
-
-
-
-//resultados de search y buscaresultado
-    // public function getHomeResults(Request $request){
-    //     //campos de search
-
-    //     $puesto = $request->query('puesto');
-    //     $lugar = $request->query('lugar');
-
-    //     if ($puesto == null && $lugar == null){
-    //         return Oferta::
-    //         orderBy('fecha_publi', 'DESC')
-    //         ->limit(12)
-    //         ->get();
-    //     }
-
-    //     if ($puesto && $lugar == null){
-    //         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
-    //         ->select('*')
-    //         ->where('name', 'LIKE', $puesto)
-    //         ->orWhere('tipo_contrato', 'LIKE', $puesto)
-    //         ->orWhere('titulo', 'LIKE', $puesto)
-    //         ->get();
-    //     }
-
-    //     if ($puesto == null && $lugar){
-    //         return Oferta::where('ciudad', 'LIKE', $lugar)
-    //         ->orWhere('provincia', 'LIKE', $lugar)
-    //         ->get();
-    //     }
-
-        // if($puesto && $lugar){
-        //     return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
-        //     ->select('*')
-        //     ->where('name', 'LIKE', $puesto)
-        //     ->orWhere('tipo_contrato', 'LIKE', $puesto)
-        //     ->orWhere('titulo', 'LIKE', $puesto)
-        //     ->where('ciudad', 'LIKE', $lugar)
-        //     ->orWhere('provincia', 'LIKE', $lugar)
-        //     ->get();
-        // }
-
+        } catch(QueryException $err) {
+             echo ($err);
+        }
         
-    // }
+
+    }
+}
