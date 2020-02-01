@@ -37,6 +37,8 @@ Route::group(['middleware' => ['cors']], function () {
 
     //Routes Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');
+    Route::get('/numSuscritos','SuscripcionController@cuentaSuscritos');
+    Route::get('/isCandidato','SuscripcionController@existeCandidato');
 
 
     //Routes Ofertas

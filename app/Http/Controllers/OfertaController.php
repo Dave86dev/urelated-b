@@ -194,7 +194,7 @@ class OfertaController extends Controller
         $jornada = $request->query('jornada');
         
 
-        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        return Oferta::select ('*')
         ->select('*')
         ->when($puesto, function ($query, $puesto) {
             $query->where('titulo', 'LIKE', $puesto);
