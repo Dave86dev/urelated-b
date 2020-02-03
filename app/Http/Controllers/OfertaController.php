@@ -120,7 +120,8 @@ class OfertaController extends Controller
 
     //Ofertas por id de empresa
     public function getOfertasPorE($idEmpresa){
-        return Oferta::select ('*')
+        return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->where('idempresa', '=',$idEmpresa)
         ->get();
     }
@@ -168,7 +169,8 @@ class OfertaController extends Controller
         $estado = $request->query('estado');
         $keyword = $request->query('keyword');
 
-        return Oferta::select ('*')
+        return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->when($activas, function ($query, $activas) {
             return $query->where('isActive', '=', $activas);
         })
@@ -260,5 +262,14 @@ class OfertaController extends Controller
         }
         
 
+    }
+
+    public function modOfertaE(Request $request){
+        $idOferta = $request->input('id');
+        $num_vacantes = $request->input('num_vacantes');
+        $description = $request->input('description');
+
+        return Oferta::where ('id', '=', $idOferta)
+        ->update(['num_vacantes' => $num_vacantes, 'desc_general' => $description]);
     }
 }

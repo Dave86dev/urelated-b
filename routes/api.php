@@ -67,6 +67,7 @@ Route::group(['middleware' => ['cors']], function () {
     });
 
     Route::post('/nuevaOferta', 'OfertaController@newOferta');
+    Route::post('/modOfertaE', 'OfertaController@modOfertaE');
 
     //Curriculum
     Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum');
