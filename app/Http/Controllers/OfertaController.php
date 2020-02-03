@@ -192,10 +192,11 @@ class OfertaController extends Controller
         $salario = $request->query('salario');
         $experiencia = $request->query('experiencia');
         $jornada = $request->query('jornada');
-        
+        $keyWord = $request->query('keyWord');
 
-        return Oferta::select ('*')
-        ->select('*')
+        
+        return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->when($puesto, function ($query, $puesto) {
             $query->where('titulo', 'LIKE', $puesto);
         })
@@ -210,6 +211,9 @@ class OfertaController extends Controller
         })
         ->when($lugar, function ($query, $lugar) {
             $query->where('ciudad', 'LIKE', $lugar);
+        })
+        ->when($keyWord, function ($query, $keyword) {
+            $query->where('desc_general', 'LIKE', "%{$keyword}%");
         })
         ->orderBy('fecha_publi', 'DESC')
         ->limit(12)

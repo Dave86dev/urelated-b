@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Empresa;
+use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
 {
@@ -18,23 +19,35 @@ class EmpresaController extends Controller
         $email = $request->input('email');
         $password = $request->input('password'); 
         
-        $q = Empresa::where('email', 'LIKE', $email)
-         ->where('password', 'LIKE', $password)->first()->id;
+        try {
 
-         //si existe, generamos el token
-         if($q != null){
-            $length = 50;
-            $token = bin2hex(random_bytes($length));
+            //primero cotejamos el pass encriptado
 
-            //guardamos el token en su campo correspondiente
-            Empresa::where('id', '=', $q)
-            ->update(['token' => $token]);
+            $validate_user = Empresa::select('password')
+            ->where('email', 'LIKE', $email)
+            ->first();
+            
+            $hashed = $validate_user->password;
+            
+            if(Hash::check($password, $hashed)){
+                
+                //si existe, generamos el token
+                
+                $length = 50;
+                $token = bin2hex(random_bytes($length));
 
-            //devolvemos al front la info necesaria ya actualizada
-            return Empresa::where('email', 'LIKE', $email)
-            ->where('password', 'LIKE', $password)->get();
-         }
-         return;
+                //guardamos el token en su campo correspondiente
+                Empresa::where('email',$email)
+                ->update(['token' => $token]);
+
+                //devolvemos al front la info necesaria ya actualizada
+                return Empresa::where('email', 'LIKE', $email)
+                ->get();
+            }
+         
+        } catch(QueryException $error){
+            return $error;
+        }
 
     }
 
@@ -49,11 +62,9 @@ class EmpresaController extends Controller
         ->update(['token' => $token_empty]);
     }
 
-    
-
     public function getPerfilE($id){
         return Empresa::all()->where('id', '=', $id)
-        ->makeHidden(['password']);
+        ->makeHidden(['password'])->keyBy('id');
     }
 
     public function postRegisterE(Request $request){
@@ -68,6 +79,8 @@ class EmpresaController extends Controller
         $phone = $request->input('phone');
         $sector = $request->input('sector');
         $description = $request->input('description');
+
+        $password = Hash::make($password);
 
         try {
 
@@ -91,7 +104,6 @@ class EmpresaController extends Controller
         }
     }
 
-
     public function postPerfilEMod(Request $request){
 
         //Actualiza el pefil de empresa
@@ -110,33 +122,3 @@ class EmpresaController extends Controller
     }
 
 }
-
-
-
-
-
-
-
-
-
-// public function getLoginE($param1, $param2){
-        
-    //     //encontramos a la empresa en concreto
-    //     $q = Empresa::where('email', 'LIKE', $param1)
-    //     ->where('password', 'LIKE', $param2)->first()->id;
-
-    //     //si existe, generamos el token
-    //     if($q != null){
-    //         $length = 50;
-    //         $token = bin2hex(random_bytes($length));
-
-    //         //guardamos el token en su campo correspondiente
-    //         Empresa::where('id', '=', $q)
-    //         ->update(['token' => $token]);
-
-    //         //devolvemos al front la info necesaria ya actualizada
-    //         return Empresa::where('email', 'LIKE', $param1)
-    //         ->where('password', 'LIKE', $param2)->get();
-    //     }
-    //     return;
-    // }

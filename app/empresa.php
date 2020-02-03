@@ -12,6 +12,8 @@ class Empresa extends Model
         'secretA', 'phone', 'sector', 'description'
     ];
 
+    protected $hidden = ['password', 'secretA'];
+
     public function ofertas()
     {
         return $this->hasMany('App\Oferta');

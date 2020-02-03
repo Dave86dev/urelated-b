@@ -12,6 +12,8 @@ class Usuario extends Model
         'pais'
     ];
 
+    protected $hidden = ['password', 'secretA'];
+
     public function suscripciones()
     {
         return $this->hasMany('App\Suscripcion','idusuario');

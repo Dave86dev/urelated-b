@@ -19,7 +19,9 @@ Route::group(['middleware' => ['cors']], function () {
 
     //Routes Usuarios
     Route::get('/perfilU/{id}', 'UsuarioController@getPerfilU');
-    
+
+    Route::post('/recoverP', 'UsuarioController@recoverPass');
+    Route::post('/recoverP2', 'UsuarioController@recoverPass2');
     Route::post('/registerU', 'UsuarioController@postRegisterU');
     Route::post('/loginU','UsuarioController@postLoginU');
     Route::post('/logOutU','UsuarioController@postLogOutU');
@@ -39,6 +41,8 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/suscripciones','SuscripcionController@getAll');
     Route::get('/numSuscritos','SuscripcionController@cuentaSuscritos');
     Route::get('/isCandidato','SuscripcionController@existeCandidato');
+
+    Route::post('/nuevaSuscripcion', "SuscripcionController@nuevaSuscripcion");
 
 
     //Routes Ofertas

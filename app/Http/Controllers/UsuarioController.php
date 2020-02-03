@@ -4,7 +4,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Database\QueryException;
 use App\Usuario;
+use App\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -15,7 +17,7 @@ class UsuarioController extends Controller
         try {
 
             return Usuario::all()->where('id', '=', $id)
-            ->makeHidden(['password']);
+            ->makeHidden(['password'])->keyBy('id');
        
         } catch (QueryException $error){
             return $error;
@@ -23,16 +25,50 @@ class UsuarioController extends Controller
     }
 
     //Obtener usuario por email
-    public function getEmailU($email){
+    public function recoverPass(Request $request){
+
+        $email = $request->input('email');
+        $userType = $request->input('userType');
+        
 
         try {
 
-            return Usuario::where('email', 'LIKE', $email)->get();
+            if($userType == "Candidato"){
+                return Usuario::where('email', 'LIKE', $email)->pluck('secretQ')->toArray();
+            }else { 
+                return Empresa::where('email', 'LIKE', $email)->pluck('secretQ')->toArray();
+            }
 
         } catch (QueryException $error){
 
             return $error;
         
+        }
+
+    }
+
+    //Obtener usuario por email
+    public function recoverPass2(Request $request){
+
+        $email = $request->input('email');
+        $secretA = $request->input('secretA');
+        $password = $request->input('password');
+        $userType = $request->input('userType');
+
+        try {
+
+            if ($userType == "Candidato"){
+                return Usuario::where('email', '=', $email)
+                ->where('secretA', '=', $secretA)
+                ->update(['password' => $password]);
+            } else {
+                return Empresa::where('email', '=', $email)
+                ->where('secretA', '=', $secretA)
+                ->update(['password' => $password]);
+            }
+        
+        } catch (QueryException $error) {
+            return $error;
         }
 
     }
@@ -43,27 +79,32 @@ class UsuarioController extends Controller
         $email = $request->input('email');
         $password = $request->input('password'); 
         
-
-
         try {
 
-            $q = Usuario::where('email', 'LIKE', $email)
-            ->where('password', 'LIKE', $password)->first()->id;
+            //primero cotejamos el pass encriptado
 
-            //si existe, generamos el token
-            if($q != null){
-            $length = 50;
-            $token = bin2hex(random_bytes($length));
+            $validate_user = Usuario::select('password')
+            ->where('email', 'LIKE', $email)
+            ->first();
+            
+            $hashed = $validate_user->password;
+            
+            if(Hash::check($password, $hashed)){
+                
+                //si existe, generamos el token
+                
+                $length = 50;
+                $token = bin2hex(random_bytes($length));
 
-            //guardamos el token en su campo correspondiente
-            Usuario::where('id', '=', $q)
-            ->update(['token' => $token]);
+                //guardamos el token en su campo correspondiente
+                Usuario::where('email',$email)
+                ->update(['token' => $token]);
 
-            //devolvemos al front la info necesaria ya actualizada
-            return Usuario::where('email', 'LIKE', $email)
-            ->where('password', 'LIKE', $password)->get();
-         }
-
+                //devolvemos al front la info necesaria ya actualizada
+                return Usuario::where('email', 'LIKE', $email)
+                ->get();
+            }
+         
         } catch(QueryException $error){
             return $error;
         }
@@ -100,6 +141,8 @@ class UsuarioController extends Controller
         $ciudad = $request->input('ciudad');
         $provincia = $request->input('provincia');
         $pais = $request->input('pais');
+
+        $password = Hash::make($password);
 
         try {
 
