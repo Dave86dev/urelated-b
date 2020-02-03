@@ -10,6 +10,6 @@ class Curriculum extends Model
 
     public function usuario()
     {
-        return $this->belongsTo('App\Usuario');
+        return $this->belongsTo('App\Usuario', 'idusuario', 'id');
     }
 }
