@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 
-class UsuarioController extends Controller
+class CurriculumController extends Controller
 {
 
     //Obtener curriculum por id Usuario
