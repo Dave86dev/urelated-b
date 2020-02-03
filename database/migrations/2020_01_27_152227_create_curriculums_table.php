@@ -24,8 +24,8 @@ class CreateCurriculumsTable extends Migration
             $table->boolean('isWorking');                       //si está trabajando o no
             $table->boolean('isWorked_before');                 //si ha trabajado con anterioridad
             $table->boolean('isEstudios');                      //si tiene estudios oficiales
-            $table->string('formacion')->nullable();            //formacion del candidato
-            $table->string('experiencia')->nullable();          //experiencia del candidato
+            $table->string('formacion', 2000)->nullable();            //formacion del candidato
+            $table->string('experiencia', 2000)->nullable();          //experiencia del candidato
         });
     }
 

@@ -70,6 +70,7 @@ Route::group(['middleware' => ['cors']], function () {
 
     //Curriculum
     Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum');
+    Route::get('/curriculum/{id}', 'CurriculumController@getCurriculum');
 });
 
 
