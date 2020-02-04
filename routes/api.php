@@ -41,11 +41,11 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/suscripciones','SuscripcionController@getAll');
     Route::get('/numSuscritos','SuscripcionController@cuentaSuscritos');
     Route::get('/isCandidato','SuscripcionController@existeCandidato');
-
-    Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion');
     Route::get('/suscripcionesPorU', 'SuscripcionController@suscripcionesPorU');
     Route::get('/suscripcionesPorE', 'SuscripcionController@suscripcionesPorE');
 
+    Route::post('/modSuscripcion', 'SuscripcionController@modSuscripcion');
+    
 
     //Routes Ofertas
     Route::get('/allOfertas', 'OfertaController@getDefault');
