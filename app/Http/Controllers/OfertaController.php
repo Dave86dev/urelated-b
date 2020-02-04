@@ -12,37 +12,56 @@ class OfertaController extends Controller
 
     //ofertas default en orden descendente según fecha
     public function getDefault(){
-        return Oferta::
-        orderBy('fecha_publi', 'DESC')
+        return Oferta::selectRaw('ofertas.* , empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->orderBy('fecha_publi', 'DESC')
         ->limit(12)
         ->get();
     }
 
     //ofertas según salario
     public function getSalario($salario){
-        return Oferta::where('salario','>=',$salario)->get();
+        return Oferta::selectRaw('ofertas.* , empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('salario','>=',$salario)
+        ->get();
     }
 
     //ofertas según contrato
     public function getContrato($tipo_contrato){
-        return Oferta::where('tipo_contrato', 'LIKE', $tipo_contrato)->get();
+        return Oferta::selectRaw('ofertas.* , empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('tipo_contrato', 'LIKE', $tipo_contrato)
+        ->get();
     }
 
     //ofertas según puesto
     public function getPuesto($titulo){
-        return Oferta::where('titulo', 'LIKE', "Director")
+        
+        return Oferta::selectRaw('ofertas.* , empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('titulo', 'LIKE', "Director")
         ->orWhere('titulo', 'LIKE', "CEO")
         ->get();
     }
 
     //oferta según ciudad
     public function getCiudad($ciudad){
-        return Oferta::where('ciudad', 'LIKE', $ciudad)->get();
+
+        return Oferta::selectRaw('ofertas.* , empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('ciudad', 'LIKE', $ciudad)
+        ->get();
     }
 
     //oferta según sector
     public function getSector($sector){
-        return Oferta::where('sector', 'LIKE', $sector)->get();
+
+        return Oferta::selectRaw('ofertas.*, empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('ofertas.sector', 'LIKE', $sector)
+        ->get();
+        
     }
 
     //Oferta según nombre de empresa
