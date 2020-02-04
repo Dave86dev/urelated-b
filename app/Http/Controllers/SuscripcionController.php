@@ -57,4 +57,18 @@ class SuscripcionController extends Controller
              echo ($err);
         }
     }
+
+    public function suscripcionesPorE($id){
+        // $id = "1";
+
+        return Suscripcion::selectRaw('usuarios.name, usuarios.id, empresas.name, suscripcions.estado, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad')
+        ->join('usuarios', 'suscripcions.idusuario', '=', 'usuarios.id')
+        ->join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('ofertas.id', '=', $id)
+        ->get();
+
+        
+    }
 }
+
