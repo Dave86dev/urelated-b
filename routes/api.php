@@ -43,6 +43,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/isCandidato','SuscripcionController@existeCandidato');
 
     Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion');
+    Route::get('/suscripcionesPorU', 'SuscripcionController@suscripcionesPorU');
     Route::get('/suscripcionesPorE', 'SuscripcionController@suscripcionesPorE');
 
 

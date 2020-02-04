@@ -58,6 +58,18 @@ class SuscripcionController extends Controller
         }
     }
 
+    public function suscripcionesPorU(Request $request){
+
+        $id = $request->query('id_usuario');
+
+        return Suscripcion::selectRaw('usuarios.id, ofertas.titulo, ofertas.ciudad, ofertas.tipo_contrato, empresas.name, suscripcions.estado, suscripcions.fecha_sus')
+        ->join('usuarios', 'suscripcions.idusuario', '=', 'usuarios.id')
+        ->join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('usuarios.id', '=', $id)
+        ->get();
+    }
+
     public function suscripcionesPorE(Request $request){
         
 
