@@ -64,7 +64,7 @@ class SuscripcionController extends Controller
         $id = $request->query('id_empresa');
         
 
-        return Suscripcion::selectRaw('usuarios.name, usuarios.id, empresas.name, suscripcions.estado, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad')
+        return Suscripcion::selectRaw('usuarios.name, usuarios.id, suscripcions.estado, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad')
         ->join('usuarios', 'suscripcions.idusuario', '=', 'usuarios.id')
         ->join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
