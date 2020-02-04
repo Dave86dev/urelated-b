@@ -44,6 +44,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/suscripcionesPorU', 'SuscripcionController@suscripcionesPorU');
     Route::get('/suscripcionesPorE', 'SuscripcionController@suscripcionesPorE');
 
+    Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion');
     Route::post('/modSuscripcion', 'SuscripcionController@modSuscripcion');
     
 
