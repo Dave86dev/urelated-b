@@ -73,14 +73,14 @@ class SuscripcionController extends Controller
     public function suscripcionesPorE(Request $request){
         
 
-        $id = $request->query('id_empresa');
+        $id = $request->query('id_oferta');
         
 
-        return Suscripcion::selectRaw('usuarios.name, usuarios.id, suscripcions.estado, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad')
+        return Suscripcion::selectRaw('usuarios.id, usuarios.name, usuarios.surname, suscripcions.estado, suscripcions.fecha_sus, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad, ofertas.sector')
         ->join('usuarios', 'suscripcions.idusuario', '=', 'usuarios.id')
         ->join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
-        ->where('empresas.id', '=', $id)
+        ->where('ofertas.id', '=', $id)
         ->get();
 
         
