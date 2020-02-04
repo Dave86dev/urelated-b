@@ -27,9 +27,9 @@ class CurriculumController extends Controller
 
     //Registro curriculum
     public function newCurriculum(Request $request){
-        //Registro candidato
+        
         $idusuario = $request->input('id');
-        $isWorked = $request->input('isWorked');
+        $isWorking = $request->input('isWorking');
         $isWorked_before = $request->input('isWorked_before');
         $isEstudios = $request->input('isEstudios');
         $formacion = $request->input('formacion');
@@ -40,7 +40,7 @@ class CurriculumController extends Controller
             return Curriculum::create(
                 [
                     'idusuario' => $idusuario,
-                    'isWorked' => $isWorked,
+                    'isWorking' => $isWorking,
                     'isWorked_before' => $isWorked_before,
                     'isEstudios' => $isEstudios,
                     'formacion' => $formacion,
