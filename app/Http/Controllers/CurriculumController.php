@@ -14,11 +14,11 @@ class CurriculumController extends Controller
 {
 
     //Obtener curriculum por id Usuario
-    public function getCurriculum ($idusuario){
+    public function getCurriculum (){
 
         try {
 
-            return Curriculum::where('idusuario', '=', $idusuario);
+            return Curriculum::all();
        
         } catch (QueryException $error){
             return $error;
