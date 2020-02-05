@@ -56,10 +56,9 @@ class CurriculumController extends Controller
         }
     } 
     //modificar curriculum
-    public function modCurriculum(Request $request, $idusu){
+    public function modCurriculum(Request $request){
         
         $id = $request->input('id');
-        $idusuario = $request->input('idusuario');
         $isWorking = $request->input('isWorking');
         $isWorked_before = $request->input('isWorked_before');
         $isEstudios = $request->input('isEstudios');
@@ -68,7 +67,7 @@ class CurriculumController extends Controller
 
         try {
 
-            return Curriculum::where('idusuario', '=', $idusu)
+            return Curriculum::where('id', '=', $id)
             ->update(['isWorking' => $isWorking, 'isWorked_before' => $isWorked_before,
             'isEstudios' => $isEstudios, 'formacion' => $formacion, 
             'experiencia' => $experiencia]);

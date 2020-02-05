@@ -74,9 +74,10 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/modOfertaE', 'OfertaController@modOfertaE');
 
     //Curriculum
-    Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum');
     Route::get('/curriculum', 'CurriculumController@getCurriculum');
-    Route::post('/modCurriculum/{idusu}', 'CurriculumController@modCurriculum');
+    
+    Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum');
+    Route::post('/modCurriculum', 'CurriculumController@modCurriculum');
 });
 
 
