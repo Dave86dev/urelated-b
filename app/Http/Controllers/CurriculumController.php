@@ -31,7 +31,7 @@ class CurriculumController extends Controller
     //Registro curriculum
     public function newCurriculum(Request $request){
         
-        $idusuario = $request->input('id');
+        $idusuario = $request->input('idusuario');
         $isWorking = $request->input('isWorking');
         $isWorked_before = $request->input('isWorked_before');
         $isEstudios = $request->input('isEstudios');
@@ -49,6 +49,29 @@ class CurriculumController extends Controller
                     'formacion' => $formacion,
                     'experiencia'=> $experiencia,
                 ]);
+
+
+        } catch(QueryException $error) {
+             return $error;
+        }
+    } 
+    //modificar curriculum
+    public function modCurriculum(Request $request, $idusu){
+        
+        $id = $request->input('id');
+        $idusuario = $request->input('idusuario');
+        $isWorking = $request->input('isWorking');
+        $isWorked_before = $request->input('isWorked_before');
+        $isEstudios = $request->input('isEstudios');
+        $formacion = $request->input('formacion');
+        $experiencia = $request->input('experiencia');
+
+        try {
+
+            return Curriculum::where('idusuario', '=', $idusu)
+            ->update(['isWorking' => $isWorking, 'isWorked_before' => $isWorked_before,
+            'isEstudios' => $isEstudios, 'formacion' => $formacion, 
+            'experiencia' => $experiencia]);
 
 
         } catch(QueryException $error) {
