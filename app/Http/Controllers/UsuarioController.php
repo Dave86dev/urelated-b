@@ -55,6 +55,8 @@ class UsuarioController extends Controller
         $password = $request->input('password');
         $userType = $request->input('userType');
 
+        $password = Hash::make($password);
+
         try {
 
             if ($userType == "Candidato"){

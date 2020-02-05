@@ -75,6 +75,7 @@ Route::group(['middleware' => ['cors']], function () {
 
     //Curriculum
     Route::get('/curriculum', 'CurriculumController@getCurriculum');
+    //Route::get('/curriculum', 'CurriculumController@getCurriculum')->middleware('auth');
     
     Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum');
     Route::post('/modCurriculum', 'CurriculumController@modCurriculum');
