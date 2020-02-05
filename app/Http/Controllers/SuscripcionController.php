@@ -40,7 +40,7 @@ class SuscripcionController extends Controller
         $id_oferta = $request->input('id_oferta');
         $id_candidato = $request->input('id_usuario');
         $date = $request->input('date');
-        $estado = 0;
+        $estado = 1;
 
         try {
 
