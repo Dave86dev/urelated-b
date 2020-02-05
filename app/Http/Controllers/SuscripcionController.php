@@ -94,5 +94,13 @@ class SuscripcionController extends Controller
         return Suscripcion::where ('id', '=', $id_suscripcion)
         ->update(['estado' => $estado]);
     }
+
+    public function delSuscripcion(Request $request){
+
+        $id_suscripcion = $request->query('id_suscripcion');
+        
+        return Suscripcion::where ('id', '=', $id_suscripcion)
+        ->delete();
+    }
 }
 
