@@ -79,6 +79,7 @@ class EmpresaController extends Controller
         $phone = $request->input('phone');
         $sector = $request->input('sector');
         $description = $request->input('description');
+        $picture = $request->input('picture');
 
         $password = Hash::make($password);
 
@@ -90,6 +91,7 @@ class EmpresaController extends Controller
                     'surname_reg' => $surname,
                     'name' => $name,
                     'email' => $email,
+                    'picture' => $picture,
                     'password' => $password,
                     'secretQ' => $secretQ,
                     'secretA' => $secretA,

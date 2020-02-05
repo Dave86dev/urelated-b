@@ -134,6 +134,7 @@ class UsuarioController extends Controller
         $name = $request->input('name');
         $surname = $request->input('surname');
         $email = $request->input('email');
+        $picture = $request->input('picture');
         $password = $request->input('password');
         $secretQ = $request->input('secretQ');
         $secretA = $request->input('secretA');
@@ -151,6 +152,7 @@ class UsuarioController extends Controller
                     'name' => $name,
                     'surname' => $surname,
                     'email' => $email,
+                    'picture' => $picture,
                     'password' => $password,
                     'secretQ' => $secretQ,
                     'secretA' => $secretA,
