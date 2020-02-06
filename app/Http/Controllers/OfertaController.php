@@ -246,7 +246,7 @@ class OfertaController extends Controller
             $query->where('desc_general', 'LIKE', "%{$keyword}%");
         })
         ->orderBy('fecha_publi', 'DESC')
-        ->limit(12)
+        ->limit(50)
         ->get();
         
     }
