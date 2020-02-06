@@ -26,7 +26,7 @@ class CreateEmpresasTable extends Migration
             $table->string('surname_reg')->nullable();       //apellido registrante
             $table->string('name');                          //nombre empresa
             $table->string('phone')->nullable();             //teléfono empresa
-            $table->string('description')->nullable();       //descripción empresa
+            $table->string('description',2000)->nullable();       //descripción empresa
             $table->string('sector')->nullable();            //sector empresa
         });
     }
