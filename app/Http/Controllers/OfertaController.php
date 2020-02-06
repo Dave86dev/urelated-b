@@ -19,6 +19,15 @@ class OfertaController extends Controller
         ->get();
     }
 
+    public function getOfertaId($id){
+
+        return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
+        ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
+        ->where('ofertas.id', '=', $id)
+        ->get();
+
+    }
+
     //ofertas según salario
     public function getSalario($salario){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
