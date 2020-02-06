@@ -16,7 +16,7 @@ class CreateCurriculumsTable extends Migration
         Schema::create('curriculums', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->unsignedBigInteger('idusuario');
+            $table->unsignedBigInteger('idusuario');            //id usuario
             $table->foreign('idusuario', 'fk_curriculums_usuarios')
             ->on('usuarios')
             ->references('id')
@@ -24,8 +24,8 @@ class CreateCurriculumsTable extends Migration
             $table->boolean('isWorking');                       //si está trabajando o no
             $table->boolean('isWorked_before');                 //si ha trabajado con anterioridad
             $table->boolean('isEstudios');                      //si tiene estudios oficiales
-            $table->string('formacion', 2000)->nullable();            //formacion del candidato
-            $table->string('experiencia', 2000)->nullable();          //experiencia del candidato
+            $table->string('formacion', 2000)->nullable();      //formacion del candidato
+            $table->string('experiencia', 2000)->nullable();    //experiencia del candidato
         });
     }
 

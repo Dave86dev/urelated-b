@@ -14,12 +14,12 @@ use App\Http\Controllers;
 |
 */
 
+//Rutas a las que se permitirá acceso
 Route::group(['middleware' => ['cors']], function () {
-    //Rutas a las que se permitirá acceso
+    
 
-    //Routes Usuarios
+    //Rutas Usuarios
     Route::get('/perfilU/{id}', 'UsuarioController@getPerfilU');
-
     Route::post('/recoverP', 'UsuarioController@recoverPass')->middleware('token');
     Route::post('/recoverP2', 'UsuarioController@recoverPass2')->middleware('token');
     Route::post('/registerU', 'UsuarioController@postRegisterU');
@@ -28,28 +28,26 @@ Route::group(['middleware' => ['cors']], function () {
     Route::post('/perfilUMod', 'UsuarioController@postPerfilUMod')->middleware('token');
 
     
-    //Routes Empresas
+    //Rutas Empresas
     Route::get('/perfilE/{id}', 'EmpresaController@getPerfilE');
-    
     Route::post('/registerE', 'EmpresaController@postRegisterE');
     Route::post('/loginE', 'EmpresaController@postLoginE');
     Route::post('/logOutE','EmpresaController@postLogOutE');
     Route::post('/perfilEMod', 'EmpresaController@postPerfilEMod')->middleware('token');
 
 
-    //Routes Suscripciones
+    //Rutas Suscripciones
     Route::get('/suscripciones','SuscripcionController@getAll');
     Route::get('/numSuscritos','SuscripcionController@cuentaSuscritos');
     Route::get('/isCandidato','SuscripcionController@existeCandidato');
     Route::get('/suscripcionesPorU', 'SuscripcionController@suscripcionesPorU');
     Route::get('/suscripcionesPorE', 'SuscripcionController@suscripcionesPorE');
-
     Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion');
     Route::post('/modSuscripcion', 'SuscripcionController@modSuscripcion');
     Route::post('/delSuscripcion', 'SuscripcionController@delSuscripcion');
     
 
-    //Routes Ofertas
+    //Rutas Ofertas
     Route::get('/allOfertas', 'OfertaController@getDefault');
     Route::get('/ofertaId/{id}', 'OfertaController@getOfertaId');
     Route::get('/salarios/{salario}','OfertaController@getSalario');
@@ -70,13 +68,11 @@ Route::group(['middleware' => ['cors']], function () {
     {
         return App\Usuario::find($userId)->load('suscripciones.oferta');
     });
-
     Route::post('/nuevaOferta', 'OfertaController@newOferta')->middleware('token');
     Route::post('/modOfertaE', 'OfertaController@modOfertaE')->middleware('token');
 
-    //Curriculum
-    Route::get('/curriculum', 'CurriculumController@getCurriculum');
-    
+    //Rutas Curriculum
+    Route::get('/curriculum', 'CurriculumController@getCurriculum'); 
     Route::post('/nuevoCurriculum', 'CurriculumController@newCurriculum')->middleware('token');
     Route::post('/modCurriculum', 'CurriculumController@modCurriculum')->middleware('token');
 });

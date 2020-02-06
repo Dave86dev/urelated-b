@@ -16,19 +16,18 @@ class CreateOfertasTable extends Migration
         Schema::create('ofertas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->string('titulo');
-            $table->string('ciudad');
-            // $table->string('provincia');
-            $table->boolean('isActive');
-            $table->integer('estado');
-            $table->date('fecha_publi');
-            $table->integer('exp_requerida');
-            $table->string('tipo_contrato');
-            $table->integer('salario')->nullable();
-            $table->string('sector');
-            $table->integer('num_vacantes');
-            $table->string('desc_general', 2000)->nullable();;
-            $table->unsignedBigInteger('idempresa');
+            $table->string('titulo');                             //puesto de la oferta
+            $table->string('ciudad');                             //ciudad 
+            $table->boolean('isActive');                          //oferta si esta activa o no
+            $table->integer('estado');                            //estado de a oferta
+            $table->date('fecha_publi');                          //fecha publicacion
+            $table->integer('exp_requerida');                     //experiencia requerida
+            $table->string('tipo_contrato');                      //tipo contrato
+            $table->integer('salario')->nullable();               //salario
+            $table->string('sector');                             //sector
+            $table->integer('num_vacantes');                      //numero vacantes
+            $table->string('desc_general', 2000)->nullable();;    //descripcion general
+            $table->unsignedBigInteger('idempresa');              //id empresa que crea la oferta
             $table->foreign('idempresa', 'fk_ofertas_empresas')
             ->on('empresas')
             ->references('id')

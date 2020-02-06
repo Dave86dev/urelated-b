@@ -16,15 +16,15 @@ class CreateSuscripcionsTable extends Migration
         Schema::create('suscripcions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
-            $table->integer('estado');
-            $table->date('fecha_sus');
-            $table->unsignedBigInteger('idusuario');
+            $table->integer('estado');                              //estado suscripcion
+            $table->date('fecha_sus');                              //fecha suscripcion
+            $table->unsignedBigInteger('idusuario');                //id usuario suscrito
             $table->foreign('idusuario', 'fk_suscripcions_usuarios')
             ->on('usuarios')
             ->references('id')
             ->onDelete('restrict');
-            $table->unsignedBigInteger('idoferta');
-            $table->foreign('idoferta', 'fk_suscripcions_ofertas')
+            $table->unsignedBigInteger('idoferta');                  //id oferta suscrita
+            $table->foreign('idoferta', 'fk_suscripcions_ofertas')   
             ->on('ofertas')
             ->references('id')
             ->onDelete('restrict');

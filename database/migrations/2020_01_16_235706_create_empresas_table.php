@@ -17,18 +17,17 @@ class CreateEmpresasTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('email')->unique();               //email
-            $table->string('picture')->nullable();          //foto de empresa
-            $table->string('password');                     //password
-            $table->string('secretQ');                      //secret question
-            $table->string('secretA');                      //secret answer
-            $table->string('token')->nullable();                      //secret answer
-            $table->string('name_reg');                     //nombre registrante
-            $table->string('surname_reg')->nullable();      //apellido registrante
-            $table->string('name');                         //nombre empresa
-            $table->string('phone')->nullable();            //teléfono empresa
-            //$table->string('fiscal')->nullable();           id fiscal
-            $table->string('description')->nullable();      //descripción empresa
-            $table->string('sector')->nullable();           //descripción empresa
+            $table->string('picture')->nullable();           //foto de empresa
+            $table->string('password');                      //password
+            $table->string('secretQ');                       //secret question
+            $table->string('secretA');                       //secret answer
+            $table->string('token')->nullable();             //token
+            $table->string('name_reg');                      //nombre registrante
+            $table->string('surname_reg')->nullable();       //apellido registrante
+            $table->string('name');                          //nombre empresa
+            $table->string('phone')->nullable();             //teléfono empresa
+            $table->string('description')->nullable();       //descripción empresa
+            $table->string('sector')->nullable();            //sector empresa
         });
     }
 
