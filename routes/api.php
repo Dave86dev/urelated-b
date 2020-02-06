@@ -44,9 +44,9 @@ Route::group(['middleware' => ['cors']], function () {
     Route::get('/suscripcionesPorU', 'SuscripcionController@suscripcionesPorU');
     Route::get('/suscripcionesPorE', 'SuscripcionController@suscripcionesPorE');
 
-    Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion')->middleware('token');
-    Route::post('/modSuscripcion', 'SuscripcionController@modSuscripcion')->middleware('token');
-    Route::post('/delSuscripcion', 'SuscripcionController@delSuscripcion')->middleware('token');
+    Route::post('/nuevaSuscripcion', 'SuscripcionController@nuevaSuscripcion');
+    Route::post('/modSuscripcion', 'SuscripcionController@modSuscripcion');
+    Route::post('/delSuscripcion', 'SuscripcionController@delSuscripcion');
     
 
     //Routes Ofertas
