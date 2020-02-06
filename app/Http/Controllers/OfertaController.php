@@ -261,7 +261,7 @@ class OfertaController extends Controller
         $vacantes = $request->input('vacantes');
         $experiencia = $request->input('experiencia');
         $jornada = $request->input('jornada');
-        $descripcion = $request->input('descripcion');
+        $descripcion = $request->input('description');
         $fecha = $request->input('fecha');
         $estado = 0;
         $activo = 1;
