@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
 {
-    //
+    //Obtener empresa por empresa
     public function getEmailE($email){
         return Empresa::where('email', 'LIKE', $email)->get();
     }
 
+    //Login empresa
     public function postLoginE(Request $request){
         
         $email = $request->input('email');
@@ -51,8 +52,8 @@ class EmpresaController extends Controller
 
     }
 
+    //Logout empresa
     public function postLogOutE(Request $request){
-        //hacemos update en el campo token de la empresa
 
         $id = $request->input('id');
 
@@ -62,13 +63,15 @@ class EmpresaController extends Controller
         ->update(['token' => $token_empty]);
     }
 
+    //Perfil empresa por id
     public function getPerfilE($id){
         return Empresa::all()->where('id', '=', $id)
         ->makeHidden(['password'])->keyBy('id');
     }
 
+    //Registrar una empresa
     public function postRegisterE(Request $request){
-        //Registro empresa
+
         $username = $request->input('username');
         $surname = $request->input('surname');
         $name = $request->input('name');
@@ -106,9 +109,9 @@ class EmpresaController extends Controller
         }
     }
 
+    //Modifica el perfil de una empresa
     public function postPerfilEMod(Request $request){
 
-        //Actualiza el pefil de empresa
 
         $id = $request->input('id');
         $email = $request->input('email');

@@ -130,9 +130,8 @@ class UsuarioController extends Controller
         }
     }
 
-    //Registro usuario
+    //Registro usuario (candidato)
     public function postRegisterU(Request $request){
-        //Registro candidato
         $name = $request->input('name');
         $surname = $request->input('surname');
         $email = $request->input('email');
@@ -170,10 +169,8 @@ class UsuarioController extends Controller
         }
     }
 
-    //Modificar perfil usuario
+    //Modifica perfil usuario (candidato) 
     public function postPerfilUMod(Request $request){
-
-        //Actualiza el pefil de candidato
 
         $id = $request->input('id');
         $name = $request->input('name');
@@ -185,16 +182,16 @@ class UsuarioController extends Controller
         $pais = $request->input('country');
 
         try {
-
+            return Usuario::where('id', '=', $id)
+                    ->update(['phone' => $phone, 'email' => $email,
+                    'ciudad' => $ciudad, 'provincia' => $provincia, 
+                    'pais' => $pais, 'name' => $name, 'surname' => $surname]);
 
         } catch (QueryException $error) {
             return $error;
         }
 
-        return Usuario::where('id', '=', $id)
-        ->update(['phone' => $phone, 'email' => $email,
-        'ciudad' => $ciudad, 'provincia' => $provincia, 
-        'pais' => $pais, 'name' => $name, 'surname' => $surname]);
+        
     }
    
 }

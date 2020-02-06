@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Suscripcion extends Model
 {
-    //
+
     protected $fillable = ['estado', 'fecha_sus', 'idusuario', 'idoferta'];
 
     public function usuario()

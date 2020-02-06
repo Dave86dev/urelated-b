@@ -55,7 +55,7 @@ class CurriculumController extends Controller
              return $error;
         }
     } 
-    //modificar curriculum
+    //Modificar curriculum
     public function modCurriculum(Request $request){
         
         $id = $request->input('id');

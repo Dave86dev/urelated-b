@@ -8,9 +8,8 @@ use Illuminate\Database\QueryException;
 
 class OfertaController extends Controller
 {
-    //
 
-    //ofertas default en orden descendente según fecha
+    //Obtener las ofertas en orden descendente por fecha
     public function getDefault(){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -19,6 +18,7 @@ class OfertaController extends Controller
         ->get();
     }
 
+    //Oferta por id, con el nombre y el logo de la empresa
     public function getOfertaId($id){
 
         return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
@@ -28,7 +28,7 @@ class OfertaController extends Controller
 
     }
 
-    //ofertas según salario
+    //Ofertas segun el salaraio
     public function getSalario($salario){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -36,7 +36,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //ofertas según contrato
+    //Ofertas segun el tipo de contrato
     public function getContrato($tipo_contrato){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -44,7 +44,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //ofertas según puesto
+    //Ofertas por puesto (titulo de la oferta)
     public function getPuesto($titulo){
         
         return Oferta::selectRaw('ofertas.* , empresas.picture')
@@ -54,7 +54,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //oferta según ciudad
+    //Ofertas segun la ciudad
     public function getCiudad($ciudad){
 
         return Oferta::selectRaw('ofertas.* , empresas.picture')
@@ -63,7 +63,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //oferta según sector
+    //Ofertas segun el sector
     public function getSector($sector){
 
         return Oferta::selectRaw('ofertas.*, empresas.picture')
@@ -73,14 +73,14 @@ class OfertaController extends Controller
         
     }
 
-    //Oferta según nombre de empresa
+    //Oferta por nombre de empresa
     public function getOfertaEmpresaName($param1){
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('ofertas.*')
         ->where('name', 'LIKE', $param1)->get();
     }
 
-    //ofertas según el primer parámetro de búsqueda (search home)
+    //Ofertas con el primer parametro de busqueda de home (nombre, tipo contrato, puesto)
     public function getOfertas1($param1){
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('*')
@@ -90,17 +90,17 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //Ciudad o Provincia (segundo parámetro de búsqueda home)
+    //Ofertas con el segundo parametro de busqueda de home (ciudad o provincia)
     public function getCiudadProvincia($param1){
         return Oferta::where('ciudad', 'LIKE', $param1)
         ->orWhere('provincia', 'LIKE', $param1)
         ->get();
     }
 
-    //ofertas por 2 parámetros de búsqueda (search home)
+    //Oferats con los dos parametros de busqueda de home
     public function getOfertasBoth($param1, $param2){
         /*
-        //$param2 corresponde a la búsqueda de ubicacion
+        ** $param2 corresponde a la búsqueda de ubicacion (ciudad o provincia) **
 
         return Oferta::where('ciudad', 'LIKE', $param1)
         ->orWhere('provincia', 'LIKE', $param1)
@@ -108,7 +108,7 @@ class OfertaController extends Controller
 
         ---------------------------------------------
 
-        $param1 corresponde a la búsqueda de tipo de oferta
+       ** $param1 corresponde a la búsqueda de tipo de oferta (nombre, tipo contrato, puesto) **
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('*')
         ->where('name', 'LIKE', $param1)
@@ -126,23 +126,6 @@ class OfertaController extends Controller
         ->orWhere('provincia', 'LIKE', $param2)
         ->get();
 
-        /*$subquery = Login::select('logins.id') 
-        ->whereColumn('logins.user_id', 'users.id') 
-        ->latest() 
-        ->limit(1); 
- 
-    $query->addSelect(['last_login_id' => $subquery]);
- 
-    $query->with('last_login'); */
-        
-    
-        
-        // $ubicacion = orWhere('ciudad', 'LIKE', $param2)
-        // ->orWhere('provincia', 'LIKE', $param2)
-        // ->get();
-
-        
-
         return $tipoOferta;
     }
 
@@ -155,28 +138,7 @@ class OfertaController extends Controller
     }
 
     //Número de usuarios suscritos a una oferta
-    public function getOfertasPorENumU($idEmpresa){
-        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
-        // ->where('idoferta', '=', $idEmpresa);
-        // return ['datos'=>$suscripcion->get(),'inscritos'=>$suscripcion
-        // ->count ('idusuario')];
-        //---------------------------------------------//
-       
-        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
-        // ->where('idoferta', '=', $idOferta)
-        // ->where('idempresa', '=', $idEmpresa);
-
-        // $oferta = Oferta::where('idempresa', '=', $idEmpresa);
-        // return ['datos'=>$suscripcion->get(),'inscritos'=>$suscripcion
-        // ->count ('idusuario')];
-
-        //--------------------------------------------//
-
-        // $suscripcion=Suscripcion::join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
-        // ->where('idoferta', '=', $idOferta);
-        // ->where('idempresa', '=', $idEmpresa);
-        // ->groupBy('id');
-        
+    public function getOfertasPorENumU($idEmpresa){     
 
         $ofertas = Oferta::with('suscripciones')->where('idempresa',$idEmpresa)->get();
         foreach ($ofertas as $oferta) {
@@ -189,7 +151,6 @@ class OfertaController extends Controller
 
     //Ofertas por id de empresa y filtros
     public function getOfertasPorEmp(Request $request){
-        //id activas orden estado keyword
         
         $id = $request->query('id');
         $activas = $request->query('activas');
@@ -215,6 +176,7 @@ class OfertaController extends Controller
         ->get();
     }
 
+    //Ofertas busqueda home y filtros
     public function getsearchHome(Request $request){
         
         $puesto = $request->query('puesto');
@@ -251,6 +213,7 @@ class OfertaController extends Controller
         
     }
 
+    //Añadir una nueva nueva oferta
     public function newOferta(Request $request){
 
         $idEmpresa = $request->input('idEmpresa');
@@ -292,6 +255,7 @@ class OfertaController extends Controller
 
     }
 
+    //Modificar el numero de vacantes y la descripcion de una oferta
     public function modOfertaE(Request $request){
         $idOferta = $request->input('id');
         $num_vacantes = $request->input('num_vacantes');

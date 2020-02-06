@@ -9,13 +9,13 @@ use Illuminate\Database\QueryException;
 
 class SuscripcionController extends Controller
 {
-    //
+    //Obtener todas las suscripciones
     public function getAll(){
         return Suscripcion::all();
     }
 
+    //Numero de suscritos a una oferta
     public function cuentaSuscritos(Request $request){
-        //
 
         $idOferta = $request->query('id_oferta');
 
@@ -24,7 +24,6 @@ class SuscripcionController extends Controller
     }
 
     public function existeCandidato(Request $request){
-        //
 
         $id = $request->query('id_candidato');
         $idoferta = $request->query('id_oferta');
@@ -34,8 +33,8 @@ class SuscripcionController extends Controller
         ->get();
     }
 
+    //Crea una nueva suscripcion
     public function nuevaSuscripcion(Request $request){
-        //
 
         $id_oferta = $request->input('id_oferta');
         $id_candidato = $request->input('id_usuario');
@@ -58,6 +57,7 @@ class SuscripcionController extends Controller
         }
     }
 
+    //Suscripciones por Usuario
     public function suscripcionesPorU(Request $request){
 
         $id = $request->query('id_usuario');
@@ -74,13 +74,18 @@ class SuscripcionController extends Controller
         ->get();
     }
 
+
+    //Suscripciones de usuarios que la empresa puede gestionar
     public function suscripcionesPorE(Request $request){
         
 
         $id = $request->query('id_oferta');
         
 
-        return Suscripcion::selectRaw('usuarios.id, usuarios.name, usuarios.surname, usuarios.ciudad AS usuciudad, suscripcions.id AS idsuscrip, suscripcions.estado, suscripcions.fecha_sus, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, ofertas.ciudad, ofertas.sector')
+        return Suscripcion::selectRaw('usuarios.id, usuarios.name, usuarios.surname, 
+        usuarios.ciudad AS usuciudad, suscripcions.id AS idsuscrip, suscripcions.estado, 
+        suscripcions.fecha_sus, ofertas.titulo, ofertas.fecha_publi, ofertas.salario, 
+        ofertas.ciudad, ofertas.sector')
         ->join('usuarios', 'suscripcions.idusuario', '=', 'usuarios.id')
         ->join('ofertas', 'suscripcions.idoferta', '=', 'ofertas.id')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -90,6 +95,7 @@ class SuscripcionController extends Controller
         
     }
 
+    //Modifica el estado de una suscripcion
     public function modSuscripcion(Request $request){
 
         $id_suscripcion = $request->input('id_suscripcion');
@@ -99,6 +105,7 @@ class SuscripcionController extends Controller
         ->update(['estado' => $estado]);
     }
 
+    //Elimina una suscripcion (candidatura)
     public function delSuscripcion(Request $request){
 
         $id_suscripcion = $request->query('id_suscripcion');
