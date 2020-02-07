@@ -99,23 +99,7 @@ class OfertaController extends Controller
 
     //Oferats con los dos parametros de busqueda de home
     public function getOfertasBoth($param1, $param2){
-        /*
-        ** $param2 corresponde a la búsqueda de ubicacion (ciudad o provincia) **
-
-        return Oferta::where('ciudad', 'LIKE', $param1)
-        ->orWhere('provincia', 'LIKE', $param1)
-        ->get();
-
-        ---------------------------------------------
-
-       ** $param1 corresponde a la búsqueda de tipo de oferta (nombre, tipo contrato, puesto) **
-        return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
-        ->select('*')
-        ->where('name', 'LIKE', $param1)
-        ->orWhere('tipo_contrato', 'LIKE', $param1)
-        ->orWhere('titulo', 'LIKE', $param1)
-        ->get();
-        */
+        
 
         $tipoOferta = Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('*')
@@ -226,7 +210,7 @@ class OfertaController extends Controller
         $jornada = $request->input('jornada');
         $descripcion = $request->input('description');
         $fecha = $request->input('fecha');
-        $estado = 0;
+        $estado = 1;
         $activo = 1;
 
         try {

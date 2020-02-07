@@ -27,6 +27,13 @@ class EmpresaController extends Controller
             $validate_user = Empresa::select('password')
             ->where('email', 'LIKE', $email)
             ->first();
+
+            if(!$validate_user){
+                return response()->json([
+                    //email incorrecto
+                    'error' => "Error_1"
+                ]); 
+            }
             
             $hashed = $validate_user->password;
             
@@ -44,6 +51,11 @@ class EmpresaController extends Controller
                 //devolvemos al front la info necesaria ya actualizada
                 return Empresa::where('email', 'LIKE', $email)
                 ->get();
+            }else{
+                return response()->json([
+                    //password incorrecto
+                    'error' => "Error_2"
+                ]);
             }
          
         } catch(QueryException $error){
@@ -104,8 +116,14 @@ class EmpresaController extends Controller
                 ]);
 
 
-        } catch(QueryException $err) {
-             echo ($err);
+        } catch(QueryException $error) {
+            $eCode = $error->errorInfo[1];
+
+            if($eCode == 1062) {
+                return response()->json([
+                    'error' => "E-mail ya registrado anteriormente"
+                ]);
+            }
         }
     }
 
@@ -121,9 +139,23 @@ class EmpresaController extends Controller
         $sector = $request->input('sector');
 
 
+        try {
+
         return Empresa::where ('id', '=', $id)
         ->update(['email' => $email, 'phone' => $phone, 'name' => $name,
         'description' => $description, 'sector' => $sector]);
+
+        } catch (Queryexception $error) {
+            $eCode = $error->errorInfo[1];
+
+            if($eCode == 1062) {
+                return response()->json([
+                    'error' => "E-mail ya registrado anteriormente"
+                ]);
+            }
+        }
+
+        
     }
 
 }

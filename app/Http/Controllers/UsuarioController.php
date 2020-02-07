@@ -88,6 +88,13 @@ class UsuarioController extends Controller
             $validate_user = Usuario::select('password')
             ->where('email', 'LIKE', $email)
             ->first();
+
+            if(!$validate_user){
+                return response()->json([
+                    //email incorrecto
+                    'error' => "Error_1"
+                ]); 
+            }
             
             $hashed = $validate_user->password;
             
@@ -105,10 +112,18 @@ class UsuarioController extends Controller
                 //devolvemos al front la info necesaria ya actualizada
                 return Usuario::where('email', 'LIKE', $email)
                 ->get();
+            
+            }else{
+                return response()->json([
+                    //password incorrecto
+                    'error' => "Error_2"
+                ]);
             }
          
         } catch(QueryException $error){
-            return $error;
+            
+            return response()->$error;
+                
         }
     }
 
@@ -165,7 +180,14 @@ class UsuarioController extends Controller
 
 
         } catch(QueryException $error) {
-             return $error;
+            
+            $eCode = $error->errorInfo[1];
+
+            if($eCode == 1062) {
+                return response()->json([
+                    'error' => "E-mail ya registrado anteriormente"
+                ]);
+            }
         }
     }
 
@@ -188,7 +210,13 @@ class UsuarioController extends Controller
                     'pais' => $pais, 'name' => $name, 'surname' => $surname]);
 
         } catch (QueryException $error) {
-            return $error;
+            $eCode = $error->errorInfo[1];
+
+            if($eCode == 1062) {
+                return response()->json([
+                    'error' => "E-mail ya registrado anteriormente"
+                ]);
+            }
         }
 
         
