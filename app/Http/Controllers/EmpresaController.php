@@ -31,7 +31,7 @@ class EmpresaController extends Controller
             if(!$validate_user){
                 return response()->json([
                     //email incorrecto
-                    'error' => "Error_1"
+                    'error' => "E-mail o password incorrecto"
                 ]); 
             }
             
@@ -54,7 +54,7 @@ class EmpresaController extends Controller
             }else{
                 return response()->json([
                     //password incorrecto
-                    'error' => "Error_2"
+                    'error' => "E-mail o password incorrecto"
                 ]);
             }
          
