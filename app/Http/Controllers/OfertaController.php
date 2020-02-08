@@ -9,12 +9,12 @@ use Illuminate\Database\QueryException;
 class OfertaController extends Controller
 {
 
-    //Obtener las ofertas en orden descendente por fecha
+    //Obtener las ofertas en orden descendente por fecha, limitadas a 30 resultados en este caso
     public function getDefault(){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->orderBy('fecha_publi', 'DESC')
-        ->limit(12)
+        ->limit(30)
         ->get();
     }
 
@@ -36,7 +36,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //Ofertas segun el tipo de contrato
+    //Ofertas segun el tipo de contrato con la foto de empresa
     public function getContrato($tipo_contrato){
         return Oferta::selectRaw('ofertas.* , empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -44,7 +44,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //Ofertas por puesto (titulo de la oferta)
+    //Ofertas por puesto (titulo de la oferta), incluyendo foto de empresa
     public function getPuesto($titulo){
         
         return Oferta::selectRaw('ofertas.* , empresas.picture')
@@ -54,7 +54,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //Ofertas segun la ciudad
+    //Ofertas segun la ciudad incluyendo foto de empresa
     public function getCiudad($ciudad){
 
         return Oferta::selectRaw('ofertas.* , empresas.picture')
@@ -63,7 +63,7 @@ class OfertaController extends Controller
         ->get();
     }
 
-    //Ofertas segun el sector
+    //Ofertas segun el sector incluyendo foto de empresa
     public function getSector($sector){
 
         return Oferta::selectRaw('ofertas.*, empresas.picture')
@@ -73,7 +73,7 @@ class OfertaController extends Controller
         
     }
 
-    //Oferta por nombre de empresa
+    //Oferta por nombre de empresa 
     public function getOfertaEmpresaName($param1){
         return Oferta::join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
         ->select('ofertas.*')
@@ -113,7 +113,7 @@ class OfertaController extends Controller
         return $tipoOferta;
     }
 
-    //Ofertas por id de empresa
+    //Ofertas por id de empresa incluyendo nombre y foto de empresa
     public function getOfertasPorE($idEmpresa){
         return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -135,12 +135,16 @@ class OfertaController extends Controller
 
     //Ofertas por id de empresa y filtros
     public function getOfertasPorEmp(Request $request){
+
+        //obtenemos las variables de filtro por url
         
         $id = $request->query('id');
         $activas = $request->query('activas');
         $orden = $request->query('orden');
         $estado = $request->query('estado');
         $keyword = $request->query('keyword');
+
+        //aplicamos when en cada caso y traemos las ofertas junto con el nombre y la foto de la empresa
 
         return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -162,6 +166,8 @@ class OfertaController extends Controller
 
     //Ofertas busqueda home y filtros
     public function getsearchHome(Request $request){
+
+        //obtenemos las variables de filtro por url
         
         $puesto = $request->query('puesto');
         $lugar = $request->query('lugar');
@@ -170,6 +176,8 @@ class OfertaController extends Controller
         $jornada = $request->query('jornada');
         $keyWord = $request->query('keyWord');
 
+
+        //obtenemos las ofteras junto con el nombre y la foto de empresa, utilizando when en cada filtro posible
         
         return Oferta::selectRaw('ofertas.* , empresas.name, empresas.picture')
         ->join('empresas', 'ofertas.idempresa', '=', 'empresas.id')
@@ -199,6 +207,10 @@ class OfertaController extends Controller
 
     //Añadir una nueva nueva oferta
     public function newOferta(Request $request){
+
+        //obtenemos las variables por body
+
+        //inicializamos el estado y activo a 1 por defecto (el estado siempre empieza como "revisando")
 
         $idEmpresa = $request->input('idEmpresa');
         $titulo = $request->input('titulo');
@@ -241,6 +253,9 @@ class OfertaController extends Controller
 
     //Modificar el numero de vacantes y la descripcion de una oferta
     public function modOfertaE(Request $request){
+
+        //recibimos las variables por body
+        
         $idOferta = $request->input('id');
         $num_vacantes = $request->input('num_vacantes');
         $description = $request->input('description');

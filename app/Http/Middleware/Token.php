@@ -18,9 +18,14 @@ class Token
     public function handle($request, Closure $next)
     {
 
+        //recogemos el usertype (candidato o empresa) por body además del token
+
+
         $userType = $request->input('userType');
         $token = $request->input('token');
 
+
+        //si es candidato...
         if($userType == "Candidato"){
 
            try {
@@ -28,6 +33,7 @@ class Token
                 $q = Usuario::where('token', 'LIKE', $token)->first();
             
                 if(!$q){
+                    //token no coincide.. return
                     return; 
                 }
              
@@ -39,6 +45,7 @@ class Token
             
         }
 
+        //si es empresa...
         if($userType == "Empresa"){
 
             try {
@@ -46,6 +53,7 @@ class Token
                 $q = Empresa::where('token', 'LIKE', $token);
 
                 if(!$q){
+                  //token no coincide.. return
                   return; 
                 }
                

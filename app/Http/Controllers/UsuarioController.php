@@ -27,11 +27,15 @@ class UsuarioController extends Controller
     //Obtener usuario por email
     public function recoverPass(Request $request){
 
+        //obtención de datos por body
+
         $email = $request->input('email');
         $userType = $request->input('userType');
         
 
         try {
+
+            //devolvemos la pregunta secreta, sea candidato o empresa el caso, previa comprobación de e-mail existente
 
             if($userType == "Candidato"){
                 return Usuario::where('email', 'LIKE', $email)->pluck('secretQ')->toArray();
@@ -50,12 +54,18 @@ class UsuarioController extends Controller
     //Obtener usuario por email
     public function recoverPass2(Request $request){
 
+        //obtenemos los datos por body
+
         $email = $request->input('email');
         $secretA = $request->input('secretA');
         $password = $request->input('password');
         $userType = $request->input('userType');
 
+        //encriptamos el nuevo password
+
         $password = Hash::make($password);
+
+        //actualizamos el password bien sea el caso candidato o empresa
 
         try {
 
@@ -83,7 +93,7 @@ class UsuarioController extends Controller
         
         try {
 
-            //primero cotejamos el pass encriptado
+            //primero cotejamos que existe el e-mail en la tabla usuario
 
             $validate_user = Usuario::select('password')
             ->where('email', 'LIKE', $email)
@@ -97,6 +107,8 @@ class UsuarioController extends Controller
             }
             
             $hashed = $validate_user->password;
+
+            //comprobamos si el password recibido corresponde con el del e-mail de candidato
             
             if(Hash::check($password, $hashed)){
                 
@@ -147,6 +159,9 @@ class UsuarioController extends Controller
 
     //Registro usuario (candidato)
     public function postRegisterU(Request $request){
+
+        //obtenemos los datos por body
+
         $name = $request->input('name');
         $surname = $request->input('surname');
         $email = $request->input('email');
@@ -158,6 +173,8 @@ class UsuarioController extends Controller
         $ciudad = $request->input('ciudad');
         $provincia = $request->input('provincia');
         $pais = $request->input('pais');
+
+        //encriptamos el password
 
         $password = Hash::make($password);
 
@@ -193,6 +210,8 @@ class UsuarioController extends Controller
 
     //Modifica perfil usuario (candidato) 
     public function postPerfilUMod(Request $request){
+
+        //obtenemos los datos por body
 
         $id = $request->input('id');
         $name = $request->input('name');

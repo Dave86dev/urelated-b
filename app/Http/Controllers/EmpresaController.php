@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EmpresaController extends Controller
 {
-    //Obtener empresa por empresa
+    //Obtener empresa por e-mail de empresa
     public function getEmailE($email){
         return Empresa::where('email', 'LIKE', $email)->get();
     }
@@ -22,7 +22,7 @@ class EmpresaController extends Controller
         
         try {
 
-            //primero cotejamos el pass encriptado
+            //primero cotejamos que existe el email en la tabla empresas
 
             $validate_user = Empresa::select('password')
             ->where('email', 'LIKE', $email)
@@ -30,12 +30,14 @@ class EmpresaController extends Controller
 
             if(!$validate_user){
                 return response()->json([
-                    //email incorrecto
+                    //email incorrecto, devolvemos error correspondiente
                     'error' => "E-mail o password incorrecto"
                 ]); 
             }
             
             $hashed = $validate_user->password;
+
+            //cotejamos que el password sea el correspondiente al email
             
             if(Hash::check($password, $hashed)){
                 
@@ -53,7 +55,7 @@ class EmpresaController extends Controller
                 ->get();
             }else{
                 return response()->json([
-                    //password incorrecto
+                    //password incorrecto, devolvemos error correspondiente
                     'error' => "E-mail o password incorrecto"
                 ]);
             }
@@ -84,6 +86,8 @@ class EmpresaController extends Controller
     //Registrar una empresa
     public function postRegisterE(Request $request){
 
+        //obtención de los datos por body
+
         $username = $request->input('username');
         $surname = $request->input('surname');
         $name = $request->input('name');
@@ -96,6 +100,7 @@ class EmpresaController extends Controller
         $description = $request->input('description');
         $picture = $request->input('picture');
 
+        //encriptación de password
         $password = Hash::make($password);
 
         try {
@@ -121,6 +126,7 @@ class EmpresaController extends Controller
 
             if($eCode == 1062) {
                 return response()->json([
+                    //devolvemos este error en caso de que hayan tratado de duplicar el email
                     'error' => "E-mail ya registrado anteriormente"
                 ]);
             }
@@ -130,6 +136,8 @@ class EmpresaController extends Controller
     //Modifica el perfil de una empresa
     public function postPerfilEMod(Request $request){
 
+
+        //obtención de datos por body
 
         $id = $request->input('id');
         $email = $request->input('email');
@@ -150,6 +158,7 @@ class EmpresaController extends Controller
 
             if($eCode == 1062) {
                 return response()->json([
+                    //evitamos que registren un e-mail ya existente en una modificación de perfil
                     'error' => "E-mail ya registrado anteriormente"
                 ]);
             }

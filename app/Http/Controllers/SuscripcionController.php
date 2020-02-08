@@ -17,6 +17,8 @@ class SuscripcionController extends Controller
     //Numero de suscritos a una oferta
     public function cuentaSuscritos(Request $request){
 
+        //contamos el número de suscripciones que hay según id de oferta 
+
         $idOferta = $request->query('id_oferta');
 
         return Suscripcion::where('idoferta', '=', $idOferta)
@@ -24,6 +26,8 @@ class SuscripcionController extends Controller
     }
 
     public function existeCandidato(Request $request){
+
+        //comprobar si existe la id de un usuario en una suscripción dado determinado id de oferta
 
         $id = $request->query('id_candidato');
         $idoferta = $request->query('id_oferta');
@@ -35,6 +39,8 @@ class SuscripcionController extends Controller
 
     //Crea una nueva suscripcion
     public function nuevaSuscripcion(Request $request){
+
+        //variables por body para generar una nueva suscripción
 
         $id_oferta = $request->input('id_oferta');
         $id_candidato = $request->input('id_usuario');
@@ -60,6 +66,8 @@ class SuscripcionController extends Controller
     //Suscripciones por Usuario
     public function suscripcionesPorU(Request $request){
 
+        //buscamos todas las suscripciones por usuario, con el filtro añadido del estado de la misma. (when al final)
+
         $id = $request->query('id_usuario');
         $estado = $request->query('estado');
 
@@ -78,7 +86,10 @@ class SuscripcionController extends Controller
     //Suscripciones de usuarios que la empresa puede gestionar
     public function suscripcionesPorE(Request $request){
         
+        //buscamos las suscripciones que tiene una empresa en concreto dado su id 
 
+
+        //obtenemos el id por url
         $id = $request->query('id_oferta');
         
 

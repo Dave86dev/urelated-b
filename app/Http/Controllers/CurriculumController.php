@@ -30,6 +30,8 @@ class CurriculumController extends Controller
 
     //Registro curriculum
     public function newCurriculum(Request $request){
+
+        //recogida de variables por body
         
         $idusuario = $request->input('idusuario');
         $isWorking = $request->input('isWorking');
@@ -57,6 +59,8 @@ class CurriculumController extends Controller
     } 
     //Modificar curriculum
     public function modCurriculum(Request $request){
+
+        //recogida de variables por body
         
         $id = $request->input('id');
         $isWorking = $request->input('isWorking');
@@ -64,6 +68,8 @@ class CurriculumController extends Controller
         $isEstudios = $request->input('isEstudios');
         $formacion = $request->input('formacion');
         $experiencia = $request->input('experiencia');
+
+        //modificamos el currículum si coincide con la id de currículum traida
 
         try {
 
