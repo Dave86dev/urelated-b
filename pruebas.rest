@@ -1,0 +1,26 @@
+// Login
+# @name resLogin
+POST http://localhost:8000/api/loginU
+Content-Type:application/json
+
+{
+	"email":  "david@gmail.com",
+	"password":  "12345"
+}
+###
+// Register
+POST http://localhost:8000/api/registerU
+Content-Type:application/json
+
+{
+	"surname_reg":  "ramirez",
+	"name":  "SEGA",
+	"email": "jac@jac",
+	"password":  "12345",
+	"secretQ": "como se llamaba tu perro?",
+	"secretA": "toby",
+	"phone": "647123456",
+	"sector": "asdfasdfasdf",
+	"description": "noooooooooooooooooooooooooooooooooo"
+}
+###

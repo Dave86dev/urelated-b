@@ -4,9 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class empresa extends Model
+class Empresa extends Model
 {
     //
+    protected $fillable = [
+        'name_reg', 'surname_reg', 'name', 'picture', 'email', 'password', 'secretQ', 
+        'secretA', 'phone', 'sector', 'description'
+    ];
 
-    protected $primaryKey = 'empresa_id';
+    protected $hidden = ['password', 'secretA'];
+
+    public function ofertas()
+    {
+        return $this->hasMany('App\Oferta');
+    }
+
+    
 }
