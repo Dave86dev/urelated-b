@@ -1,78 +1,220 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+#
 
-## About Laravel
+#### Table of Contents  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [How to run 🚀](#How-to-run-)  
+- [DB 💾](#DB-) 
+- [Backend 🔙](#Backend-) 
+	- [User endpoints](#USER)
+	- [Product endpoints](#MOVIE)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Frontend 👁‍🗨](#Frontend-)  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<br>
 
-## Laravel Sponsors
+# ¿Qué es? 👀
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Es un portal de empleo creado y diseñador por [Rubén Viosquez Beades](https://github.com/rubeneitor) y [David Ochando Blasco](https://github.com/Dave86dev/) que usa:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+- Frontend: 🌌 React 16 + Redux
+- Backend: 🔸 PHP Laravel 
+- DB: 🍃 MySQL 
 
-## Contributing
+Durante el desarrollo hemos usado [este tablón de Trello](https://trello.com/b/OY1doF76/urelated).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+<br>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Cómo lanzarlo 🚀
 
-## Security Vulnerabilities
+- Descargar [Repositorio Backend](https://github.com/Dave86dev/urelated-b).
+- Descargar [Repositorio Frontend](https://github.com/rubeneitor/urelated-f)
+- En el the backend ejecutar:
+	- `php artisan serve`
+- En el the frontend ejecutar:
+	- `npm start`
+- Debería abrirse en http://localhost:3000/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+<br>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# DB 💾
+
+Esquema DB
+![](https://trello-attachments.s3.amazonaws.com/5e1f91537a519b60467910d8/1183x825/5e51f9d802a14358f11d9476697db190/b069e56af23f426d8c03c1f91c63acde.png)
+
+
+<br>
+
+# Backend 🔙
+
+## **Endpoints** 📃
+
+## USER
+
+- Register
+	- **POST** /registerU
+```json
+{
+	"name": "usuario",
+	"surname": "prueba",
+	"email":  "usuarioprueba@gmail.com",
+	"picture": "https://s3-us-west-2.amazonaws.com/thecoderlist/testing/coder-man-profile-pic.png",
+	"phone": "123456789",
+	"password":  "12345",
+	"secretQ": "hola",
+	"secretA": "adios",
+	"ciudad": "Mislata",
+	"provincia": "Valencia",
+	"pais": "España"
+}
+```
+
+- Login
+	- **POST** /loginU
+```json
+{
+	"email":  "usuarioprueba@gmail.com",
+	"password":  "12345"
+}
+```
+
+- Logout
+	- **POST** /logOutU
+	
+- Get user profile
+	- **GET** /perfilU/{id}
+
+
+## BUSINESS
+
+- Register
+	- **POST** /registerE
+```json
+{
+	"name_reg": "empresa",
+	"surname_reg": "prueba",
+	"name": "empresaprueba",
+	"email":  "empresaprueba@gmail.com",
+	"picture": "https://www.lafabricadebordados.es/2783-large_default/parche-bordado-mercedes-benz.jpg",
+	"password":  "12345",
+	"secretQ": "hola",
+	"secretA": "adios",
+	"phone": "123456789",
+	"description": "Empresa dedica a la marca mercedes y al desarrollo de sus webs",
+	"sector": "software"
+}
+```
+
+- Login
+	- **POST** /loginE
+```json
+{
+	"email":  "empresaprueba@gmail.com",
+	"password":  "12345"
+}
+```
+
+- Logout
+	- **POST** /logOutE
+	
+- Get user profile
+	- **GET** /perfilE/{id}
+
+
+
+
+
+
+<br>
+
+# Frontend 👁‍🗨
+
+## Features 📃
+
+- Homepage:
+	- Vista principal con ofertas destacadas de diferentes ambito y motor de busqueda
+	![](https://trello-attachments.s3.amazonaws.com/5e1f2afd48fcff536d5f0134/5e2c072828afd87ca27ebe72/464b88ab9267918b05967d0d486989f3/d52c81a3205b765097693bb73b27d3d0.png)
+	
+- Búsqueda
+	- Pulsando sobre la lupa se puede hacer una búsqueda vacía, mostrando todos los productos.
+	- Filtros:
+		- Palabra clave
+		- Rango salarial
+		- Años de experiencia
+		- Tipo de jornada
+	- Orden
+		- Fecha
+	![](https://i.gyazo.com/0d18a9e97158e40b8626e2c730b4deff.png)
+
+- Ofertas
+	- Detalle
+		- Ordenadas por fecha
+		![](https://i.gyazo.com/c1a20e45ec1bc4024409dcee1fe16843.png)
+	
+- Usuarios
+	- Login
+	![](https://i.gyazo.com/14e854eab0ceed98f52b1936a90fffe0.png)
+	
+	- Register
+		- Primer paso:
+	![](https://i.gyazo.com/929c2db7532a84df5d888b4c41b3f5c1.png)
+		- Segundo paso:
+	![](https://i.gyazo.com/ec542d80d5b288f180843136473d5c64.png)
+
+		-Tercer y ultimo paso:
+	![](https://i.gyazo.com/6fed2f25ce5c25535564e8a58fbc6a20.png)
+	
+	- Password reset
+		- Primer paso:
+	![](https://i.gyazo.com/a2bbbb531428c2c6e9408f9dc2eda959.png)
+		- Segundo paso:
+	![](https://i.gyazo.com/ef7b52b1b320ee583fbde7dcb6a21481.png)
+
+
+	
+	- Perfil
+	![](https://i.gyazo.com/9a64f2c3690ee5666a98ad3615c15c2f.png)
+
+	- Curriculum
+	![](https://i.gyazo.com/6c359e97b45a940feaf7df75acac596b.png)
+
+	- Candidaturas
+	![](https://i.gyazo.com/e775572a93d8ca391e6257f2e6700a31.png)
+
+- Empresas 
+	- Login
+	![](https://i.gyazo.com/f81c70fb94198a97fa1beae710068cec.png)
+
+	- Register 
+		- Primer paso
+		![](https://i.gyazo.com/2f28108ed57e614aaa05583eb7ea02a2.png)
+
+		- Segundo y ultimo paso 
+		![](https://i.gyazo.com/0c33734b0bedce71ea31f70eaafe0941.png)
+
+	- Password reset
+		- Primer paso
+	    ![](https://i.gyazo.com/a21e693c558bb1753a55c6753cbf21f1.png)
+
+		- Segundo paso
+		![](https://i.gyazo.com/657dea32b8afbe51e28d66347ace16ef.png)
+
+	- Perfil 
+	![](https://i.gyazo.com/72ede28e53a282d46f932eebdf62481a.png)
+
+	- Ofertas
+	![](https://i.gyazo.com/4db2167e1ad36b29cf134077b670fb23.png)
+
+	- Camabiar candidatura
+	![](https://i.gyazo.com/bf6b80a16471f918f356f943d93dddfc.png)
+	
+
+<br>
+
+# [🡅 TOP 🡅](#Table-of-Contents)  
